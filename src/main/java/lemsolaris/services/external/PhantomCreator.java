@@ -1,4 +1,4 @@
-package lemsolaris.external;
+package lemsolaris.services.external;
 
 import org.springframework.stereotype.Service;
 

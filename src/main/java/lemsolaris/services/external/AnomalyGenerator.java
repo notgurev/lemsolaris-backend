@@ -1,4 +1,4 @@
-package lemsolaris.external;
+package lemsolaris.services.external;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
