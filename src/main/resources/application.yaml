@@ -6,3 +6,9 @@ spring:
     driverClassName: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+
+lemsolaris:
+  base_coordinates:
+    x: 0
+    y: 0
+  max_anomaly_distance: 1000
