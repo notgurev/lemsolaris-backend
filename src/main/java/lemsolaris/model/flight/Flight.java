@@ -1,4 +1,38 @@
 package lemsolaris.model.flight;
 
+import lemsolaris.model.other.Ship;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "flight")
+@Getter
+@Setter
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Flight {
+    @Id
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "type")
+    private String type;
+
+    @ManyToOne
+    @Column(name = "ship_id")
+    private Ship ship;
+
+    @Column(name = "flight_status")
+    private String status;
+
+    @Column(name = "seats_taken")
+    private int seatsTaken;
+
+    @Column(name = "time_start")
+    private LocalDateTime timeStart;
+
+    @Column(name = "time_end")
+    private LocalDateTime timeEnd;
 }
