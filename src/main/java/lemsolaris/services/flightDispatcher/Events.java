@@ -1,6 +1,8 @@
 package lemsolaris.services.flightDispatcher;
 
-public class Events {
+import lemsolaris.services.flightDispatcher.interfaces.IEvents;
+
+public class Events implements IEvents {
 
 
     public void setResultOfFlight(){
