@@ -26,6 +26,7 @@ public class Anomaly {
     @Column(name = "flight_radius")
     private int flightRadius;
 
-    @OneToOne(mappedBy = "coords_id")
+    @OneToOne
+    @JoinColumn(name = "coords_id", referencedColumnName = "id")
     private Coordinates coordinates;
 }

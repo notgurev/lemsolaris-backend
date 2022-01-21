@@ -16,7 +16,7 @@ public class EmployeePhantom extends Employee {
     private Long id;
 
     @ManyToOne
-    @Column(name = "human_host")
+    @JoinColumn(name = "human_host", referencedColumnName = "employee_id")
     private Employee humanHost;
 
     @Column(name = "lifetime")

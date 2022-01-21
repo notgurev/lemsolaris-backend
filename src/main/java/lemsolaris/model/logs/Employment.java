@@ -16,7 +16,7 @@ public class Employment {
     private Long id;
 
     @ManyToOne
-    @Column(name = "employee_id")
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
     @Column(name = "assigned_status")

@@ -31,5 +31,6 @@ public class Employee {
     private int age;
 
     @ManyToOne
+    @JoinColumn(name = "profession", referencedColumnName = "id")
     private Profession profession;
 }

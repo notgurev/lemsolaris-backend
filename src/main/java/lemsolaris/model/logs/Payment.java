@@ -17,7 +17,7 @@ public class Payment {
     private Long id;
 
     @ManyToOne
-    @Column(name = "employee_id")
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
     @Column(name = "date")
@@ -26,8 +26,8 @@ public class Payment {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "resource_id")
     @ManyToOne
+    @JoinColumn(name = "resource_id", referencedColumnName = "id")
     private StockResource resource;
 
     @Column(name = "amount")

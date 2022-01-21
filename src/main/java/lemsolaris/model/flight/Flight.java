@@ -21,7 +21,7 @@ public class Flight {
     private String type;
 
     @ManyToOne
-    @Column(name = "ship_id")
+    @JoinColumn(name = "ship_id", referencedColumnName = "id")
     private Ship ship;
 
     @Column(name = "flight_status")

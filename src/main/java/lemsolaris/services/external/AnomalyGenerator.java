@@ -3,16 +3,18 @@ package lemsolaris.services.external;
 import lemsolaris.services.external.interfaces.IAnomalyGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@ComponentScan("application.yaml")
 public class AnomalyGenerator implements IAnomalyGenerator {
-    @Value("{lemsolaris.base_coordinates.x}")
+    @Value("${lemsolaris.base_coordinates.x}")
     private int baseX = 0;
-    @Value("{lemsolaris.base_coordinates.y}")
+    @Value("${lemsolaris.base_coordinates.y}")
     private int baseY = 0;
-    @Value("{lemsolaris.base_coordinates.y}")
+    @Value("${lemsolaris.max_anomaly_distance}")
     private int maxDistance = 1000;
 
     public void generateRandomAnomaly() {

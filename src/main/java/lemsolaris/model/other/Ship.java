@@ -17,7 +17,7 @@ public class Ship {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "ship_type")
+    @Column(name = "type")
     private String shipType;
 
     @Column(name = "fuel_capacity")

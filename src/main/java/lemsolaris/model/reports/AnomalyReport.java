@@ -17,8 +17,8 @@ public class AnomalyReport {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "author_id")
     @ManyToOne
+    @JoinColumn(name = "author_id", referencedColumnName = "employee_id")
     private Employee author;
 
     @Column(name = "success")
@@ -33,11 +33,11 @@ public class AnomalyReport {
     @Column(name = "anomaly_flight_radius")
     private int anomalyFlightRadius;
 
-    @Column(name = "anomaly_id")
     @ManyToOne
+    @JoinColumn(name = "anomaly_id", referencedColumnName = "id")
     private Anomaly anomaly;
 
-    @Column(name = "flight_id")
     @ManyToOne
+    @JoinColumn(name = "flight_id", referencedColumnName = "id")
     private Flight flight;
 }

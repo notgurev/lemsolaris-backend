@@ -4,10 +4,7 @@ import lemsolaris.model.reports.TourReport;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tour_flight")
@@ -20,7 +17,7 @@ public class TourFlight extends Flight {
     @Column(name = "number_of_seats")
     private int numberOfSeats;
 
-    @Column(name = "report")
     @OneToOne
+    @JoinColumn(name = "report", referencedColumnName = "id")
     private TourReport report;
 }

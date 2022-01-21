@@ -14,4 +14,10 @@ public class ExampleMustacheController {
     public ModelAndView foo(Map<String, Object> model) {
         return new ModelAndView("example", model);
     }
+
+    @GetMapping("/registrationPage")
+    public ModelAndView register(Map<String, Object> model){
+        return new ModelAndView("registrationPage", model);
+    }
+
 }

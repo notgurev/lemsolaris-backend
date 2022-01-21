@@ -17,7 +17,7 @@ public class StockResource {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "resource_type")
+    @Column(name = "type")
     private String type;
 
     @Column(name = "quantity")
