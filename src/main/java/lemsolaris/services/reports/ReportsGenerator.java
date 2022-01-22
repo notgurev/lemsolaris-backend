@@ -1,8 +1,7 @@
 package lemsolaris.services.reports;
 
-import lemsolaris.services.reports.interfaces.IReportsGenerator;
 
-public class ReportsGenerator implements IReportsGenerator {
+public class ReportsGenerator  {
 
     public void create_report_of_anomaly(int anomaly_id){
 

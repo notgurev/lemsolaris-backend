@@ -1,11 +1,17 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
+    url: jdbc:postgresql://localhost:5431/studs
+    username: user
     password: password
-    driverClassName: org.h2.Driver
+    driverClassName: org.postgresql.Driver
+
+
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database: postgresql
 
 lemsolaris:
   base_coordinates:

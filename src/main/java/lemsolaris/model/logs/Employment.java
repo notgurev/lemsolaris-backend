@@ -1,27 +1,80 @@
 package lemsolaris.model.logs;
 
-import lemsolaris.model.employee.Employee;
-import lombok.Getter;
-import lombok.Setter;
+import lemsolaris.model.enums.EmployeeStatus;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "employment")
-@Getter
-@Setter
 public class Employment {
+    private int id;
+    private int employeeId;
+    private EmployeeStatus assignedStatus;
+    private Timestamp date;
+
     @Id
-    private Long id;
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
-    private Employee employee;
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    @Column(name = "assigned_status")
-    private String assignedStatus;
+    @Basic
+    @Column(name = "employee_id", nullable = false)
+    public int getEmployeeId() {
+        return employeeId;
+    }
 
-    @Column(name = "date")
-    private LocalDateTime date;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    @Basic
+    @Column(name = "assigned_status", nullable = false)
+    public EmployeeStatus getAssignedStatus() {
+        return assignedStatus;
+    }
+
+    public void setAssignedStatus(EmployeeStatus assignedStatus) {
+        this.assignedStatus = assignedStatus;
+    }
+
+    @Basic
+    @Column(name = "date", nullable = false)
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employment that = (Employment) o;
+
+        if (id != that.id) return false;
+        if (employeeId != that.employeeId) return false;
+        if (assignedStatus != null ? !assignedStatus.equals(that.assignedStatus) : that.assignedStatus != null)
+            return false;
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + employeeId;
+        result = 31 * result + (assignedStatus != null ? assignedStatus.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        return result;
+    }
 }
