@@ -1,6 +1,5 @@
 package lemsolaris.model.logs;
 
-import lemsolaris.model.enums.PaymentType;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,7 +10,7 @@ public class Payment {
     private int id;
     private int employeeId;
     private Timestamp date;
-    private PaymentType type;
+    private String type;
     private int resourceId;
     private int amount;
 
@@ -47,11 +46,11 @@ public class Payment {
 
     @Basic
     @Column(name = "type", nullable = false)
-    public PaymentType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(PaymentType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

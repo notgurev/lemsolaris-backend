@@ -1,7 +1,5 @@
 package lemsolaris.model.flight;
 
-import lemsolaris.model.enums.FlightStatus;
-import lemsolaris.model.enums.FlightType;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.reports.AnomalyReport;
 
@@ -13,9 +11,9 @@ import java.util.Collection;
 @Table(name = "flight")
 public class Flight {
     private int id;
-    private FlightType type;
+    private String type;
     private int shipId;
-    private FlightStatus flightStatus;
+    private String flightStatus;
     private int seatsTaken;
     private Timestamp timeStart;
     private Timestamp timeEnd;
@@ -37,11 +35,11 @@ public class Flight {
 
     @Basic
     @Column(name = "type", nullable = false)
-    public FlightType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(FlightType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -57,11 +55,11 @@ public class Flight {
 
     @Basic
     @Column(name = "flight_status", nullable = false)
-    public FlightStatus getFlightStatus() {
+    public String getFlightStatus() {
         return flightStatus;
     }
 
-    public void setFlightStatus(FlightStatus flightStatus) {
+    public void setFlightStatus(String flightStatus) {
         this.flightStatus = flightStatus;
     }
 

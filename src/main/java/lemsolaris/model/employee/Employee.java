@@ -1,7 +1,5 @@
 package lemsolaris.model.employee;
 
-import lemsolaris.model.enums.EmployeeStatus;
-import lemsolaris.model.enums.EmployeeType;
 import lemsolaris.model.reports.AnomalyReport;
 
 import javax.persistence.*;
@@ -12,8 +10,8 @@ import java.util.Collection;
 public class Employee {
     private int employeeId;
     private String fullName;
-    private EmployeeType type;
-    private EmployeeStatus status;
+    private String type;
+    private String status;
     private int salary;
     private int age;
     private int profession;
@@ -43,21 +41,21 @@ public class Employee {
 
     @Basic
     @Column(name = "type", nullable = false)
-    public EmployeeType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(EmployeeType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
     @Basic
     @Column(name = "status", nullable = false)
-    public EmployeeStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(EmployeeStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

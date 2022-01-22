@@ -1,8 +1,5 @@
 package lemsolaris.model.anomaly;
 
-import lemsolaris.model.enums.AnomalyHazardLevel;
-import lemsolaris.model.enums.AnomalyStatus;
-import lemsolaris.model.enums.AnomalyType;
 import lemsolaris.model.reports.AnomalyReport;
 import lemsolaris.model.other.Coordinates;
 import lemsolaris.model.flight.FlightAnomalyOrder;
@@ -14,12 +11,9 @@ import java.util.Collection;
 @Table(name = "anomaly")
 public class Anomaly {
     private int id;
-    @Enumerated(EnumType.STRING)
-    private AnomalyStatus statusOfAnomaly;
-    @Enumerated(EnumType.STRING)
-    private AnomalyType typeOfAnomaly;
-    @Enumerated(EnumType.STRING)
-    private AnomalyHazardLevel anomalyHazardLevel;
+    private String statusOfAnomaly;
+    private String typeOfAnomaly;
+    private String anomalyHazardLevel;
     private int flightRadius;
     private Integer coordsId;
     private Coordinates coordinatesByCoordsId;
@@ -38,31 +32,31 @@ public class Anomaly {
 
     @Basic
     @Column(name = "status_of_anomaly", nullable = false)
-    public AnomalyStatus getStatusOfAnomaly() {
+    public String getStatusOfAnomaly() {
         return statusOfAnomaly;
     }
 
-    public void setStatusOfAnomaly(AnomalyStatus statusOfAnomaly) {
+    public void setStatusOfAnomaly(String statusOfAnomaly) {
         this.statusOfAnomaly = statusOfAnomaly;
     }
 
     @Basic
     @Column(name = "type_of_anomaly", nullable = true)
-    public AnomalyType getTypeOfAnomaly() {
+    public String getTypeOfAnomaly() {
         return typeOfAnomaly;
     }
 
-    public void setTypeOfAnomaly(AnomalyType typeOfAnomaly) {
+    public void setTypeOfAnomaly(String typeOfAnomaly) {
         this.typeOfAnomaly = typeOfAnomaly;
     }
 
     @Basic
     @Column(name = "anomaly_hazard_level", nullable = true)
-    public AnomalyHazardLevel getAnomalyHazardLevel() {
+    public String getAnomalyHazardLevel() {
         return anomalyHazardLevel;
     }
 
-    public void setAnomalyHazardLevel(AnomalyHazardLevel anomalyHazardLevel) {
+    public void setAnomalyHazardLevel(String anomalyHazardLevel) {
         this.anomalyHazardLevel = anomalyHazardLevel;
     }
 
