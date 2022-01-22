@@ -1,8 +1,6 @@
 package lemsolaris.repositories;
 
 import lemsolaris.model.anomaly.Anomaly;
-import lemsolaris.model.enums.AnomalyStatus;
-import lemsolaris.services.internal.AnomalyService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

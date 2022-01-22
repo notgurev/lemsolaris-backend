@@ -1,6 +1,5 @@
 package lemsolaris.model.flight;
 
-import lemsolaris.model.enums.Sex;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ public class Tourist {
     private int id;
     private String name;
     private int age;
-    private Sex sex;
+    private String sex;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -44,11 +43,11 @@ public class Tourist {
 
     @Basic
     @Column(name = "sex", nullable = false)
-    public Sex getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Sex sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
