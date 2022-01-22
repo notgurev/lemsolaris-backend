@@ -2,8 +2,6 @@ package lemsolaris.model.reports;
 
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.employee.Employee;
-import lemsolaris.model.enums.AnomalyHazardLevel;
-import lemsolaris.model.enums.AnomalyType;
 import lemsolaris.model.flight.ExplorationFlight;
 import lemsolaris.model.flight.Flight;
 
@@ -16,8 +14,8 @@ public class AnomalyReport {
     private int id;
     private int authorId;
     private boolean success;
-    private AnomalyType anomalyType;
-    private AnomalyHazardLevel anomalyHazardLevel;
+    private String anomalyType;
+    private String anomalyHazardLevel;
     private int anomalyFlightRadius;
     private Integer anomalyId;
     private Integer flightId;
@@ -58,21 +56,21 @@ public class AnomalyReport {
 
     @Basic
     @Column(name = "anomaly_type", nullable = false)
-    public AnomalyType getAnomalyType() {
+    public String getAnomalyType() {
         return anomalyType;
     }
 
-    public void setAnomalyType(AnomalyType anomalyType) {
+    public void setAnomalyType(String anomalyType) {
         this.anomalyType = anomalyType;
     }
 
     @Basic
     @Column(name = "anomaly_hazard_level", nullable = false)
-    public AnomalyHazardLevel getAnomalyHazardLevel() {
+    public String getAnomalyHazardLevel() {
         return anomalyHazardLevel;
     }
 
-    public void setAnomalyHazardLevel(AnomalyHazardLevel anomalyHazardLevel) {
+    public void setAnomalyHazardLevel(String anomalyHazardLevel) {
         this.anomalyHazardLevel = anomalyHazardLevel;
     }
 

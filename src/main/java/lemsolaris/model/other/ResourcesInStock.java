@@ -1,6 +1,5 @@
 package lemsolaris.model.other;
 
-import lemsolaris.model.enums.ResourceType;
 import lemsolaris.model.flight.FlightResources;
 
 import javax.persistence.*;
@@ -10,7 +9,7 @@ import java.util.Collection;
 @Table(name = "resources_in_stock")
 public class ResourcesInStock {
     private int id;
-    private ResourceType type;
+    private String type;
     private int quantity;
     private Integer marketPrice;
     private Collection<FlightResources> flightResourcesById;
@@ -27,11 +26,11 @@ public class ResourcesInStock {
 
     @Basic
     @Column(name = "type", nullable = false)
-    public ResourceType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(ResourceType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

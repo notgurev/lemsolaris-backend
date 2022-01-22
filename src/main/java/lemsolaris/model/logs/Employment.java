@@ -1,7 +1,5 @@
 package lemsolaris.model.logs;
 
-import lemsolaris.model.enums.EmployeeStatus;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -10,7 +8,7 @@ import java.sql.Timestamp;
 public class Employment {
     private int id;
     private int employeeId;
-    private EmployeeStatus assignedStatus;
+    private String assignedStatus;
     private Timestamp date;
 
     @Id
@@ -35,11 +33,11 @@ public class Employment {
 
     @Basic
     @Column(name = "assigned_status", nullable = false)
-    public EmployeeStatus getAssignedStatus() {
+    public String getAssignedStatus() {
         return assignedStatus;
     }
 
-    public void setAssignedStatus(EmployeeStatus assignedStatus) {
+    public void setAssignedStatus(String assignedStatus) {
         this.assignedStatus = assignedStatus;
     }
 

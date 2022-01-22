@@ -14,7 +14,6 @@ public class WeatherForecast {
     private int coordsId;
     private Timestamp startTime;
     private Timestamp endTime;
-    @Enumerated(EnumType.STRING)
     private WeatherType weatherTypeByWeatherType;
     private Coordinates coordinatesByCoordsId;
 
