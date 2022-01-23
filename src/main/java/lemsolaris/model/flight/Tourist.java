@@ -2,10 +2,7 @@ package lemsolaris.model.flight;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -13,6 +10,7 @@ import javax.persistence.Table;
 public class Tourist {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tourist_seq")
     private Long id;
 
     @Column(name = "name")

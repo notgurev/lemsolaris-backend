@@ -1,21 +1,24 @@
 package lemsolaris.model.flight;
 
 import lemsolaris.model.other.Ship;
+import lemsolaris.model.other.StockResource;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "flight")
 @Data
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Flight {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flight_seq")
     private Long id;
 
     @Column(name = "type")
@@ -36,4 +39,22 @@ public abstract class Flight {
 
     @Column(name = "time_end")
     private LocalDateTime timeEnd;
+
+    @ManyToMany
+    @JoinTable(
+            name = "flight_resources",
+            joinColumns = {@JoinColumn(name = "flight_id", referencedColumnName = "id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "resource_id", referencedColumnName = "id", nullable = false)}
+    )
+    private Collection<StockResource> resources = new ArrayList<>();
+
+    public Flight(String type, Ship ship, String status, int seatsTaken,
+                  LocalDateTime timeStart, LocalDateTime timeEnd) {
+        this.type = type;
+        this.ship = ship;
+        this.status = status;
+        this.seatsTaken = seatsTaken;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+    }
 }

@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class AnomalyReport {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="anomaly_report_seq")
     private Long id;
 
     @ManyToOne

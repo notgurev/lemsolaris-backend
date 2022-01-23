@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Coordinates {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="coordinates_seq")
     private Long id;
 
     @Column(name = "x")
