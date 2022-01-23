@@ -1,10 +1,13 @@
 package lemsolaris.model.flight;
 
+import lemsolaris.model.other.Ship;
 import lemsolaris.model.reports.TourReport;
+import lemsolaris.util.Utility;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tour_flight")
@@ -21,9 +24,13 @@ public class TourFlight extends Flight {
     @JoinColumn(name = "report", referencedColumnName = "id")
     private TourReport report;
 
-    public TourFlight(int ticketPrice, int numberOfSeats, TourReport report) {
+    /**
+     * Create planned tourist flight
+     */
+    public TourFlight(Ship ship, int ticketPrice) {
+        super("Sightseeing", ship, "Planned", 0, Utility.tomorrow(), null);
         this.ticketPrice = ticketPrice;
-        this.numberOfSeats = numberOfSeats;
-        this.report = report;
+        this.numberOfSeats = ship.getCrewCapacity();
+        this.report = null;
     }
 }
