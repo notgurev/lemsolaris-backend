@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static lemsolaris.util.Utility.randomIntInRange;
+import static lemsolaris.util.RandomNumbers.randomIntInRange;
 
 @Service
 public class ShipService {

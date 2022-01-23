@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 
-import static lemsolaris.util.Utility.randomIntInRange;
+import static lemsolaris.util.RandomNumbers.randomIntInRange;
 
 @Component
 public class Startup {

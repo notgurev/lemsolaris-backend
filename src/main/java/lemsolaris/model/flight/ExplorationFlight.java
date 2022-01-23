@@ -3,6 +3,7 @@ package lemsolaris.model.flight;
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.reports.AnomalyReport;
+import lemsolaris.util.TimeUtil;
 import lemsolaris.util.Utility;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,6 @@ public class ExplorationFlight extends Flight {
     private AnomalyReport report;
 
     public ExplorationFlight(Ship ship, Anomaly target) {
-        super("Exploration", ship, "Planned", 0, Utility.tomorrow(), target);
+        super("Exploration", ship, "Planned", 0, TimeUtil.tomorrow(), target);
     }
 }

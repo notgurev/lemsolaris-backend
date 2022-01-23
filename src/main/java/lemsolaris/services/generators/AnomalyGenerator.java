@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
-import static lemsolaris.util.Utility.randomIntInRange;
+import static lemsolaris.util.RandomNumbers.randomIntInRange;
 
 @Service
 @ComponentScan("application.yaml")
