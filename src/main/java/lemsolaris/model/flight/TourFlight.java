@@ -4,7 +4,6 @@ import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.reports.TourReport;
 import lemsolaris.util.TimeUtil;
-import lemsolaris.util.Utility;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,7 +28,7 @@ public class TourFlight extends Flight {
      * Create planned tourist flight
      */
     public TourFlight(Ship ship, Anomaly target, int ticketPrice) {
-        super("Tourist", ship, "Planned", 0, TimeUtil.tomorrow(), target);
+        super(FlightType.Tourist, ship, FlightStatus.Planned, 0, TimeUtil.tomorrow(), target);
         this.ticketPrice = ticketPrice;
         this.numberOfSeats = ship.getCrewCapacity();
         this.report = null;

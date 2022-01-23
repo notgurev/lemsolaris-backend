@@ -24,6 +24,6 @@ public class ExplorationFlight extends Flight {
     private AnomalyReport report;
 
     public ExplorationFlight(Ship ship, Anomaly target) {
-        super("Exploration", ship, "Planned", 0, TimeUtil.tomorrow(), target);
+        super(FlightType.Exploration, ship, FlightStatus.Planned, 0, TimeUtil.tomorrow(), target);
     }
 }

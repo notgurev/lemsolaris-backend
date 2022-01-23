@@ -22,9 +22,10 @@ public class Tourist {
     private int age;
 
     @Column(name = "sex")
-    private String sex;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
 
-    public Tourist(String name, int age, String sex) {
+    public Tourist(String name, int age, Sex sex) {
         this.name = name;
         this.age = age;
         this.sex = sex;

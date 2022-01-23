@@ -3,7 +3,6 @@ package lemsolaris.model.flight;
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.other.StockResource;
-import lemsolaris.services.DistanceCalculator;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static lemsolaris.services.DistanceCalculator.*;
+import static lemsolaris.services.DistanceCalculator.calculateEndTime;
 
 @Entity
 @Table(name = "flight")
@@ -30,14 +29,16 @@ public class Flight {
     private Long id;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private FlightType type;
 
     @ManyToOne
     @JoinColumn(name = "ship_id", referencedColumnName = "id")
     private Ship ship;
 
     @Column(name = "flight_status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private FlightStatus status;
 
     @Column(name = "seats_taken")
     private int seatsTaken;
@@ -59,7 +60,7 @@ public class Flight {
     )
     private Collection<StockResource> resources = new ArrayList<>();
 
-    public Flight(String type, Ship ship, String status, int seatsTaken,
+    public Flight(FlightType type, Ship ship, FlightStatus status, int seatsTaken,
                   LocalDateTime timeStart, Anomaly targetAnomaly) {
         this.type = type;
         this.ship = ship;
