@@ -6,12 +6,14 @@ import lemsolaris.model.anomaly.HazardLevel;
 import lemsolaris.model.employee.Employee;
 import lemsolaris.model.flight.Flight;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "anomaly_report")
 @Data
+@NoArgsConstructor
 public class AnomalyReport {
     @Id
     @Column(name = "id")

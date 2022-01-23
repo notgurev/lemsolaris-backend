@@ -1,5 +1,6 @@
 package lemsolaris.services;
 
+import lemsolaris.model.flight.TourFlight;
 import lemsolaris.model.reports.AnomalyReport;
 import lemsolaris.model.reports.TourReport;
 import lemsolaris.repositories.AnomalyReportRepository;
@@ -27,8 +28,14 @@ public class ReportService {
     }
 
     public void createAnomalyReport(int anomalyId) {
+
     }
 
-    public void createTourReport(int tourId) {
+    public void createTourReport(TourFlight flight) {
+        TourReport tourReport = new TourReport();
+        tourReport.setSuccessful(true);
+        tourReport.setFlight(flight);
+        // TODO: это костыль: пилот + врач + ученый = 3
+        tourReport.setProfit((flight.getSeatsTaken() - 3) * flight.getTicketPrice());
     }
 }
