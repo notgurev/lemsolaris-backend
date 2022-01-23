@@ -54,9 +54,11 @@ public class CommandLineAppStartupRunner {
 
         // Anomalies
         {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 50; i++) {
                 long id = anomalyGenerator.generateRandomAnomaly();
-                anomalyGenerator.exploreAnomaly(id);
+                if (i % 2 == 0) {
+                    anomalyGenerator.exploreAnomaly(id);
+                }
             }
         }
 
