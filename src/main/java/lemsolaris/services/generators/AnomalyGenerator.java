@@ -2,16 +2,18 @@ package lemsolaris.services.generators;
 
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.anomaly.AnomalyStatus;
+import lemsolaris.model.anomaly.AnomalyType;
 import lemsolaris.model.other.Coordinates;
 import lemsolaris.repositories.AnomalyRepository;
 import lemsolaris.repositories.CoordinatesRepository;
+import lemsolaris.util.RandomUtil;
 import lemsolaris.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
-import static lemsolaris.util.RandomNumbers.randomIntInRange;
+import static lemsolaris.util.RandomUtil.randomIntInRange;
 
 @Service
 @ComponentScan("application.yaml")
@@ -24,7 +26,7 @@ public class AnomalyGenerator {
     private int maxDistance = 1000;
 
     private static final String[] hazardLevels = {"Dangerous", "Non-dangerous"};
-    private static final String[] anomalyTypes = {"Structural", "Non-structural"};
+    private static final AnomalyType[] anomalyTypes = {AnomalyType.NonStructural, AnomalyType.Structural};
 
     private final AnomalyRepository anomalyRepository;
     private final CoordinatesRepository coordinatesRepository;
@@ -49,7 +51,7 @@ public class AnomalyGenerator {
         anomalyRepository.findById(id).ifPresent(anomaly -> {
             anomaly.setStatus(AnomalyStatus.Explored);
             anomaly.setHazardLevel(Utility.randomStringFromArray(hazardLevels));
-            anomaly.setType(Utility.randomStringFromArray(anomalyTypes));
+            anomaly.setType(RandomUtil.randomFromArray(anomalyTypes));
             if (anomaly.getHazardLevel().equals("Dangerous")) {
                 anomaly.setFlightRadius(randomIntInRange(50, 100));
             }

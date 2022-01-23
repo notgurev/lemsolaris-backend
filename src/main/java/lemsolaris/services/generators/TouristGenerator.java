@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 import java.util.List;
 
-import static lemsolaris.util.RandomNumbers.randomIntInRange;
+import static lemsolaris.util.RandomUtil.randomIntInRange;
 import static lemsolaris.util.Utility.randomStringFromArray;
 
 @Service
