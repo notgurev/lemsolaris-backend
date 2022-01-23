@@ -6,6 +6,7 @@ import lemsolaris.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,10 @@ public class EmployeeService {
     @Autowired
     public EmployeeService(EmployeeRepository<Employee> employeeRepository) {
         this.employeeRepository = employeeRepository;
+    }
+
+    public Collection<Employee> getCandidates() {
+        return employeeRepository.findEmployeesByStatus(EmployeeStatus.Candidate);
     }
 
     public void fireEmployee(long id) {
