@@ -21,9 +21,9 @@ public class EmployeeHuman extends Employee {
     @Column(name = "mental_resistance")
     private int mentalResistance;
 
-    public EmployeeHuman(String fullName, String status, int salary, int age,
-                         String profession, int baseMHI, int mentalResistance) {
-        super(fullName, "Human", status, salary, age, profession);
+    public EmployeeHuman(String fullName, EmployeeStatus status, int salary, int age,
+                         Profession profession, int baseMHI, int mentalResistance) {
+        super(fullName, EmployeeType.Human, status, salary, age, profession);
         this.currentMHI = baseMHI;
         this.baseMHI = baseMHI;
         this.mentalResistance = mentalResistance;

@@ -18,8 +18,8 @@ public class EmployeePhantom extends Employee {
     @Column(name = "lifetime")
     private LocalDateTime lifetime;
 
-    public EmployeePhantom(String fullName, int age, String profession, Employee humanHost, LocalDateTime lifetime) {
-        super(fullName, "Phantom", "Hired", 0, age, profession);
+    public EmployeePhantom(String fullName, int age, Profession profession, Employee humanHost, LocalDateTime lifetime) {
+        super(fullName, EmployeeType.Phantom, EmployeeStatus.Hired, 0, age, profession);
         this.humanHost = humanHost;
         this.lifetime = lifetime;
     }

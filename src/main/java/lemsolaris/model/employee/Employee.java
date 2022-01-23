@@ -1,9 +1,7 @@
 package lemsolaris.model.employee;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -12,20 +10,22 @@ import javax.persistence.*;
 @Table(name = "employee")
 @Data
 @NoArgsConstructor
-public  class Employee {
+public class Employee {
     @Id
     @Column(name = "employee_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="employee_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
     private Long id;
 
     @Column(name = "full_name")
     private String fullName;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private EmployeeType type;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private EmployeeStatus status;
 
     @Column(name = "salary")
     private int salary;
@@ -34,9 +34,11 @@ public  class Employee {
     private int age;
 
     @Column(name = "profession")
-    private String profession;
+    @Enumerated(EnumType.STRING)
+    private Profession profession;
 
-    public Employee(String fullName, String type, String status, int salary, int age, String profession) {
+    public Employee(String fullName, EmployeeType type, EmployeeStatus status,
+                    int salary, int age, Profession profession) {
         this.fullName = fullName;
         this.type = type;
         this.status = status;
