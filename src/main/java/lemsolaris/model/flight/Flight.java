@@ -3,7 +3,9 @@ package lemsolaris.model.flight;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.other.StockResource;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

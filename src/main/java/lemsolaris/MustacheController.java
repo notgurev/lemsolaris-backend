@@ -15,11 +15,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
-public class ExampleMustacheController {
+public class MustacheController {
     final AnomalyService anomalyService;
     final FlightService flightService;
 
-    public ExampleMustacheController(AnomalyService anomalyService, FlightService flightService) {
+    public MustacheController(AnomalyService anomalyService, FlightService flightService) {
         this.anomalyService = anomalyService;
         this.flightService = flightService;
     }
