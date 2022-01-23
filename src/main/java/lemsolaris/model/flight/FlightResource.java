@@ -1,6 +1,9 @@
 package lemsolaris.model.flight;
 
+import lemsolaris.model.other.StockResource;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,20 +11,31 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "flight_resources")
+@IdClass(FlightResource.FlightResourceId.class)
+@NoArgsConstructor
 public class FlightResource { // todo
-    @EmbeddedId
-    private FlightResourcePK flightResourcePK;
+    @Column(name = "resource_id")
+    @Id
+    private Long resourceId;
+
+    @Column(name = "flight_id")
+    @Id
+    private Long flightId;
 
     @Column(name = "quantity")
     private int quantity;
 
-    @Embeddable
     @Data
-    public static class FlightResourcePK implements Serializable {
-        @Column(name = "resource_id")
-        private Long resourceId;
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FlightResourceId implements Serializable {
+        private StockResource resourceId;
+        private Flight flightId;
+    }
 
-        @Column(name = "flight_id")
-        private Long flightId;
+    public FlightResource(Long resourceId, Long flightId, int quantity) {
+        this.resourceId = resourceId;
+        this.flightId = flightId;
+        this.quantity = quantity;
     }
 }
