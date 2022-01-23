@@ -19,5 +19,4 @@ public class ExampleMustacheController {
     public ModelAndView register(Map<String, Object> model){
         return new ModelAndView("registrationPage", model);
     }
-
 }
