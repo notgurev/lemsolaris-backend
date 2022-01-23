@@ -1,6 +1,7 @@
 package lemsolaris.services;
 
 import lemsolaris.model.flight.Flight;
+import lemsolaris.model.flight.FlightStatus;
 import lemsolaris.model.reports.AnomalyReport;
 import lemsolaris.repositories.AnomalyReportRepository;
 import lemsolaris.repositories.FlightRepository;
@@ -32,6 +33,16 @@ public class FlightService {
     }
 
     public void cancelFlightById(int id) {
-        //todo - отмена вылета
+        Optional<Flight> opt = flightRepository.findById((long) id);
+
+        if (!opt.isPresent()) {
+            throw new RuntimeException("No flight with id = " + id);
+        }
+
+        Flight flight = opt.get();
+
+        flight.setStatus(FlightStatus.Cancelled);
+        // todo free employees, return resources
+        flightRepository.save(flight);
     }
 }
