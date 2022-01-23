@@ -126,4 +126,11 @@ public class MustacheController {
         return new ModelAndView("hiredHuman", model);
     }
 
+    @GetMapping("/createPhantom")
+    public ModelAndView createPhantom(Map<String, Object> model, @RequestParam(name = "id") int id){
+        employeeService.createPhantomById(id);
+
+        model.put("humans", employeeService.getHired());
+        return new ModelAndView("hiredHuman", model);
+    }
 }

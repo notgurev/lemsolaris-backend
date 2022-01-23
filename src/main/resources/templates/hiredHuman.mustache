@@ -12,8 +12,9 @@
             border-collapse: collapse;
             outline: 3px solid #ffd300;
             font-size: 15px;
-            background: #fff!important;
+            background: #fff !important;
         }
+
         .table th {
             font-weight: bold;
             padding: 7px;
@@ -24,6 +25,7 @@
             border-top: 3px solid #fff;
             border-bottom: 3px solid #ffd300;
         }
+
         .table td {
             padding: 7px;
             border: none;
@@ -31,8 +33,9 @@
             border-bottom: 3px solid #fff;
             font-size: 15px;
         }
-        .table tbody tr:nth-child(even){
-            background: #f8f8f8!important;
+
+        .table tbody tr:nth-child(even) {
+            background: #f8f8f8 !important;
         }
     </style>
 </head>
@@ -50,6 +53,7 @@
         <th>Status</th>
         <th>Salary</th>
         <th>Profession</th>
+        <th>Create Phantom</th>
     </tr>
     </thead>
     <tbody>
@@ -62,6 +66,12 @@
             <td>{{status}}</td>
             <td>{{salary}}</td>
             <td>{{profession}}</td>
+            <td>
+                <form action="/createPhantom" method="GET">
+                    <br>
+                    <button type="submit" name="id" value="{{id}}">Создать фантома</button>
+                </form>
+            </td>
         </tr>
     {{/humans}}
     </tbody>

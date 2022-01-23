@@ -15,12 +15,16 @@ public class EmployeePhantom extends Employee {
     @JoinColumn(name = "human_host", referencedColumnName = "employee_id")
     private Employee humanHost;
 
-    @Column(name = "lifetime")
-    private LocalDateTime lifetime;
+    @Column(name = "lifetime_start")
+    private LocalDateTime lifetimeStart;
 
-    public EmployeePhantom(String fullName, int age, Profession profession, Employee humanHost, LocalDateTime lifetime) {
+    @Column(name = "lifetime_end")
+    private LocalDateTime lifetimeEnd;
+
+    public EmployeePhantom(String fullName, int age, Profession profession, Employee humanHost, LocalDateTime lifetimeStart, LocalDateTime lifetimeEnd) {
         super(fullName, EmployeeType.Phantom, EmployeeStatus.Hired, 0, age, profession);
         this.humanHost = humanHost;
-        this.lifetime = lifetime;
+        this.lifetimeStart = lifetimeStart;
+        this.lifetimeEnd = lifetimeEnd;
     }
 }
