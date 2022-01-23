@@ -1,15 +1,16 @@
 package lemsolaris.services;
 
 import com.github.javafaker.Faker;
-import lemsolaris.model.employee.Employee;
-import lemsolaris.model.employee.EmployeePhantom;
-import lemsolaris.model.employee.EmployeeStatus;
-import lemsolaris.model.employee.EmployeeType;
+import lemsolaris.model.employee.*;
 import lemsolaris.repositories.EmployeeRepository;
 import lemsolaris.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 import static lemsolaris.util.RandomUtil.randomIntInRange;
 
 @Service
+@EnableScheduling
 public class EmployeeService {
     private final EmployeeRepository<Employee> employeeRepository;
     private final EmployeeRepository<EmployeePhantom> employeePhantomEmployeeRepository;
@@ -82,7 +84,7 @@ public class EmployeeService {
 
         ArrayList<Employee> employeeArrayList = (ArrayList<Employee>) employeeRepository.findEmployeesByStatus(EmployeeStatus.Dead).stream().collect(Collectors.toList());
 
-        if(employeeArrayList.isEmpty()){
+        if (employeeArrayList.isEmpty()) {
             throw new RuntimeException("No dead peoples");
         }
 
@@ -99,12 +101,23 @@ public class EmployeeService {
 
 
         Employee employee = opt.get();
-        //тут нужно чтобы только у одного чела мог быть фантом.
-        //и по времени убивать его
         employeePhantom.setHumanHost(employee);
         employeePhantom.setLifetimeStart(TimeUtil.now());
-        employeePhantom.setLifetimeStart(TimeUtil.now().plusDays(randomIntInRange(1, 10)));
+        employeePhantom.setLifetimeStart(TimeUtil.now().plusSeconds(randomIntInRange(1, 10)));
 
         employeeRepository.save(employeePhantom);
+    }
+
+    @Transactional
+    @Scheduled(fixedDelay = 5000)
+    public void killPhantoms() {
+        //Todo Тут надо проверить время еще
+        if (!employeePhantomEmployeeRepository.findAll().isEmpty()) {
+           for ( Employee employee: employeeRepository.findAll()) {
+               if(employee.getType()==EmployeeType.Phantom){
+
+               }
+           }
+        }
     }
 }
