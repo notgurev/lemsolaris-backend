@@ -5,7 +5,6 @@ import lemsolaris.services.AnomalyService;
 import lemsolaris.services.FlightCreator;
 import lemsolaris.services.FlightService;
 import lemsolaris.services.generators.TourService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -42,7 +39,7 @@ public class MustacheController {
         model.put("fEanomalies", false);
         model.put("fUanomalies", false);
         if (type.equals("Explored")) {
-            model.put("anomalies", anomalyService.getExploredAnomalies());
+            model.put("anomalies", anomalyService.getSafeExploredAnomalies());
             model.put("fEanomalies", true);
         } else if (type.equals("Unexplored")) {
             model.put("anomalies", anomalyService.getUnexploredAnomalies());

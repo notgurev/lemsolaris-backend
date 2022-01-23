@@ -24,7 +24,8 @@ public class Anomaly {
     private AnomalyType type;
 
     @Column(name = "anomaly_hazard_level")
-    private String hazardLevel;
+    @Enumerated(EnumType.STRING)
+    private HazardLevel hazardLevel;
 
     @Column(name = "flight_radius")
     private int flightRadius;
@@ -33,7 +34,7 @@ public class Anomaly {
     @JoinColumn(name = "coords_id", referencedColumnName = "id")
     private Coordinates coordinates;
 
-    public Anomaly(AnomalyStatus status, AnomalyType type, String hazardLevel, int flightRadius, Coordinates coordinates) {
+    public Anomaly(AnomalyStatus status, AnomalyType type, HazardLevel hazardLevel, int flightRadius, Coordinates coordinates) {
         this.status = status;
         this.type = type;
         this.hazardLevel = hazardLevel;

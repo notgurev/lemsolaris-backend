@@ -2,6 +2,7 @@ package lemsolaris.services;
 
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.anomaly.AnomalyStatus;
+import lemsolaris.model.anomaly.HazardLevel;
 import lemsolaris.repositories.AnomalyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class AnomalyService {
         this.anomalyRepository = anomalyRepository;
     }
 
-    public Collection<Anomaly> getExploredAnomalies() {
-        return anomalyRepository.getAnomaliesByStatusAndHazardLevel(AnomalyStatus.Explored, "Non-dangerous");
+    public Collection<Anomaly> getSafeExploredAnomalies() {
+        return anomalyRepository.getAnomaliesByStatusAndHazardLevel(AnomalyStatus.Explored, HazardLevel.Safe);
     }
 
     public Collection<Anomaly> getUnexploredAnomalies() {
