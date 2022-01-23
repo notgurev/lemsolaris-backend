@@ -25,7 +25,8 @@ public class Payment {
     private LocalDateTime date;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private PaymentType type;
 
     @ManyToOne
     @JoinColumn(name = "resource_id", referencedColumnName = "id")
