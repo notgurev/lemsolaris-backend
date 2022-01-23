@@ -45,7 +45,6 @@ public class Flight {
     @Column(name = "time_end")
     private LocalDateTime timeEnd;
 
-    @Column(name = "target_anomaly")
     @ManyToOne
     private Anomaly targetAnomaly;
 
@@ -58,12 +57,13 @@ public class Flight {
     private Collection<StockResource> resources = new ArrayList<>();
 
     public Flight(String type, Ship ship, String status, int seatsTaken,
-                  LocalDateTime timeStart, LocalDateTime timeEnd) {
+                  LocalDateTime timeStart, LocalDateTime timeEnd, Anomaly targetAnomaly) {
         this.type = type;
         this.ship = ship;
         this.status = status;
         this.seatsTaken = seatsTaken;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
+        this.targetAnomaly = targetAnomaly;
     }
 }

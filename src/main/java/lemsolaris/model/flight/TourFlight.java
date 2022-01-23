@@ -1,5 +1,6 @@
 package lemsolaris.model.flight;
 
+import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.reports.TourReport;
 import lemsolaris.util.Utility;
@@ -27,8 +28,8 @@ public class TourFlight extends Flight {
     /**
      * Create planned tourist flight
      */
-    public TourFlight(Ship ship, int ticketPrice) {
-        super("Sightseeing", ship, "Planned", 0, Utility.tomorrow(), null);
+    public TourFlight(Ship ship, int ticketPrice, Anomaly target, LocalDateTime timeEnd) {
+        super("Sightseeing", ship, "Planned", 0, Utility.tomorrow(), timeEnd, target);
         this.ticketPrice = ticketPrice;
         this.numberOfSeats = ship.getCrewCapacity();
         this.report = null;

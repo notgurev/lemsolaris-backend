@@ -6,15 +6,18 @@ import lemsolaris.model.other.StockResource;
 import lemsolaris.repositories.FlightRepository;
 import lemsolaris.repositories.ShipRepository;
 import lemsolaris.repositories.StockResourceRepository;
+import lemsolaris.services.FlightCreator;
 import lemsolaris.services.generators.AnomalyGenerator;
 import lemsolaris.services.generators.TouristGenerator;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+
+import static lemsolaris.util.Utility.randomIntInRange;
+import static lemsolaris.util.Utility.randomStringFromArray;
 
 @Component
 public class CommandLineAppStartupRunner {
@@ -23,54 +26,62 @@ public class CommandLineAppStartupRunner {
     private final StockResourceRepository resourceRepository;
     private final ShipRepository shipRepository;
     private final TouristGenerator touristGenerator;
+    private final FlightCreator flightCreator;
 
     @Autowired
     public CommandLineAppStartupRunner(FlightRepository<TourFlight> tourFlightRepository,
                                        AnomalyGenerator anomalyGenerator,
                                        StockResourceRepository resourceRepository,
                                        ShipRepository shipRepository,
-                                       TouristGenerator touristGenerator) {
+                                       TouristGenerator touristGenerator,
+                                       FlightCreator flightCreator) {
         this.tourFlightRepository = tourFlightRepository;
         this.anomalyGenerator = anomalyGenerator;
         this.resourceRepository = resourceRepository;
         this.shipRepository = shipRepository;
         this.touristGenerator = touristGenerator;
+        this.flightCreator = flightCreator;
     }
 
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void fillTables() {
-        TourFlight tourFlight = new TourFlight(100, 20, null);
-        TourFlight t2 = new TourFlight(200, 30, null);
-        tourFlightRepository.save(tourFlight);
-        tourFlightRepository.save(t2);
-        System.out.println(anomalyGenerator.generateRandomAnomaly());
+        // Resources
+        {
+            resourceRepository.save(new StockResource("Money", 10000, 1));
+            resourceRepository.save(new StockResource("Fuel", 5000, 10));
+        }
 
         // Anomalies
-        for (int i = 0; i < 10; i++) {
-            long id = anomalyGenerator.generateRandomAnomaly();
-            anomalyGenerator.exploreAnomaly(id);
+        {
+            for (int i = 0; i < 10; i++) {
+                long id = anomalyGenerator.generateRandomAnomaly();
+                anomalyGenerator.exploreAnomaly(id);
+            }
         }
 
         // Ships
         {
-            val s1 = new Ship("Tourist", 500, 3, 6);
-            val s2 = new Ship("Exploration", 700, 5, 3);
-            shipRepository.save(s1);
-            shipRepository.save(s2);
-        }
-
-        // Resources
-        {
-            val res = new StockResource("Money", 10000, 1);
-            resourceRepository.save(res);
-            resourceRepository.save(new StockResource("Fuel", 5000, 10));
-            tourFlight.getResources().add(res);
+            String[] strings = {"Tourist", "Exploration"};
+            for (int i = 0; i < 100; i++) {
+                Ship s = new Ship(
+                        randomStringFromArray(strings),
+                        randomIntInRange(500, 2000),
+                        randomIntInRange(2, 5),
+                        randomIntInRange(2, 20)
+                );
+                shipRepository.save(s);
+            }
         }
 
         // Tourists
         {
             touristGenerator.generateTourists(50);
+        }
+
+        // Exploration flights
+        {
+            flightCreator.createExplorationToAnomaly(1);
         }
     }
 }
