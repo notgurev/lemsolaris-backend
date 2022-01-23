@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Employee {
     @Id
     @Column(name = "employee_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "full_name")
@@ -30,7 +31,6 @@ public class Employee {
     @Column(name = "age")
     private int age;
 
-    @ManyToOne
-    @JoinColumn(name = "profession", referencedColumnName = "id")
-    private Profession profession;
+    @Column(name = "profession")
+    private String profession;
 }

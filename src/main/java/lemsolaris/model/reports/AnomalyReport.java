@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class AnomalyReport {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne

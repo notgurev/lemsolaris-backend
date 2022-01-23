@@ -11,14 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 public class EmployeeHuman extends Employee {
-    @Id
-    @Column(name = "employee_id")
-    private Long id;
-
-    @JoinTable
-    @ManyToMany
-    private List<Employee> contacts;
-
     @Column(name = "current_MHI")
     private int currentMHI;
 

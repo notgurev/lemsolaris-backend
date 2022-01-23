@@ -11,10 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class EmployeePhantom extends Employee {
-    @Id
-    @Column(name = "employee_id")
-    private Long id;
-
     @ManyToOne
     @JoinColumn(name = "human_host", referencedColumnName = "employee_id")
     private Employee humanHost;

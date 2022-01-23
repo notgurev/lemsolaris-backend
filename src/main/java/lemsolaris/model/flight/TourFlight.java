@@ -20,4 +20,13 @@ public class TourFlight extends Flight {
     @OneToOne
     @JoinColumn(name = "report", referencedColumnName = "id")
     private TourReport report;
+
+    public TourFlight() {
+    }
+
+    public TourFlight(int ticketPrice, int numberOfSeats, TourReport report) {
+        this.ticketPrice = ticketPrice;
+        this.numberOfSeats = numberOfSeats;
+        this.report = report;
+    }
 }

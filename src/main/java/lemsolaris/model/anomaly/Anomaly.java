@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "anomaly")
 public class Anomaly {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "status_of_anomaly")

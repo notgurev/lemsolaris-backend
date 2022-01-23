@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Flight {
+public abstract class Flight {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "type")

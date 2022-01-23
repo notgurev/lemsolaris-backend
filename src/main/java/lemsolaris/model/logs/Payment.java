@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class Payment {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
