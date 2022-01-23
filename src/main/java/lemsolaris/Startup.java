@@ -60,7 +60,7 @@ public class Startup {
         {
             Profession[] professions = {Profession.Doctor, Profession.Pilot,
                     Profession.Scientist, Profession.Scientist};
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 50; i++) {
                 EmployeeHuman e = new EmployeeHuman(
                         faker.name().fullName(),
                         EmployeeStatus.Candidate,
@@ -92,7 +92,7 @@ public class Startup {
 
         // Ships
         {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 20; i++) {
                 Ship s = new Ship(
                         ShipType.Tourist,
                         randomIntInRange(1000, 2000),
@@ -101,7 +101,7 @@ public class Startup {
                 );
                 shipRepository.save(s);
             }
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 20; i++) {
                 Ship s = new Ship(
                         ShipType.Exploration,
                         randomIntInRange(1000, 2000),
@@ -114,7 +114,7 @@ public class Startup {
 
         // Tourists
         {
-            touristGenerator.generateTourists(50);
+//            touristGenerator.generateTourists(50);
         }
 
         // Flights
