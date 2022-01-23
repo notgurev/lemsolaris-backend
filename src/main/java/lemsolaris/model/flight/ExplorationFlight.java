@@ -22,7 +22,7 @@ public class ExplorationFlight extends Flight {
     @JoinColumn(name = "report_id", referencedColumnName = "id")
     private AnomalyReport report;
 
-    public ExplorationFlight(Ship ship, Anomaly target, LocalDateTime timeEnd) {
-        super("Exploration", ship, "Planned", 0, Utility.tomorrow(), timeEnd, target);
+    public ExplorationFlight(Ship ship, Anomaly target) {
+        super("Exploration", ship, "Planned", 0, Utility.tomorrow(), target);
     }
 }

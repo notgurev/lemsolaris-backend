@@ -2,41 +2,28 @@ package lemsolaris.services;
 
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.flight.ExplorationFlight;
+import lemsolaris.model.flight.Flight;
 import lemsolaris.model.flight.TourFlight;
 import lemsolaris.model.other.Coordinates;
 import lemsolaris.model.other.Ship;
-import lemsolaris.repositories.AnomalyRepository;
 import lemsolaris.repositories.FlightRepository;
-import lemsolaris.repositories.ShipRepository;
-import lemsolaris.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static lemsolaris.services.DistanceCalculator.calculateDistance;
+
 @Service
 public class FlightCreator {
-    private final FlightRepository<ExplorationFlight> explorationFlights;
-    private final FlightRepository<TourFlight> touristFlights;
-    private final ShipRepository ships;
-    private final AnomalyRepository anomalies;
+    // Repositories
+    private final FlightRepository<Flight> flights;
 
     // Services
-    private final DistanceCalculator distanceCalculator;
     private final AnomalyService anomalyService;
     private final ShipService shipService;
 
     @Autowired
-    public FlightCreator(FlightRepository<ExplorationFlight> explorationFlights,
-                         FlightRepository<TourFlight> touristFlights,
-                         ShipRepository ships,
-                         AnomalyRepository anomalies,
-                         DistanceCalculator distanceCalculator,
-                         AnomalyService anomalyService,
-                         ShipService shipService) {
-        this.explorationFlights = explorationFlights;
-        this.touristFlights = touristFlights;
-        this.ships = ships;
-        this.anomalies = anomalies;
-        this.distanceCalculator = distanceCalculator;
+    public FlightCreator(FlightRepository<Flight> flights, AnomalyService anomalyService, ShipService shipService) {
+        this.flights = flights;
         this.anomalyService = anomalyService;
         this.shipService = shipService;
     }
@@ -45,29 +32,30 @@ public class FlightCreator {
         Anomaly anomaly = anomalyService.findAnomalyById(id);
 
         Coordinates c = anomaly.getCoordinates();
-        int distance = distanceCalculator.calculate(c.getX(), c.getY());
+        int distance = calculateDistance(c.getX(), c.getY());
 
         Ship ship = shipService.findSuitableShip("Exploration", distance);
-        ExplorationFlight explorationFlight = new ExplorationFlight(
-                ship, anomaly, distanceCalculator.calculateEndTime(Utility.tomorrow(), distance)
-        );
-        explorationFlights.save(explorationFlight);
+        Flight f = new ExplorationFlight(ship, anomaly);
+        flights.save(f);
+
         // todo add employees
-        return explorationFlight.getId();
+
+        return f.getId();
     }
 
     public long createTourFlightToAnomaly(long id, int ticketPrice) {
         Anomaly anomaly = anomalyService.findAnomalyById(id);
 
         Coordinates c = anomaly.getCoordinates();
-        int distance = distanceCalculator.calculate(c.getX(), c.getY());
+        int distance = calculateDistance(c.getX(), c.getY());
 
         Ship ship = shipService.findSuitableShip("Tourist", distance);
-        TourFlight tourFlight = new TourFlight(
-                ship, ticketPrice, anomaly, distanceCalculator.calculateEndTime(Utility.tomorrow(), distance)
-        );
-        touristFlights.save(tourFlight); // todo superclass
+
+        Flight f = new TourFlight(ship, anomaly, ticketPrice);
+        flights.save(f);
+
         // todo add employees and tourists
-        return tourFlight.getId();
+
+        return f.getId();
     }
 }

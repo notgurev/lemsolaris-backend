@@ -3,6 +3,7 @@ package lemsolaris.model.flight;
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.other.StockResource;
+import lemsolaris.services.DistanceCalculator;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static lemsolaris.services.DistanceCalculator.*;
 
 @Entity
 @Table(name = "flight")
@@ -57,13 +60,13 @@ public class Flight {
     private Collection<StockResource> resources = new ArrayList<>();
 
     public Flight(String type, Ship ship, String status, int seatsTaken,
-                  LocalDateTime timeStart, LocalDateTime timeEnd, Anomaly targetAnomaly) {
+                  LocalDateTime timeStart, Anomaly targetAnomaly) {
         this.type = type;
         this.ship = ship;
         this.status = status;
         this.seatsTaken = seatsTaken;
         this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
+        this.timeEnd = calculateEndTime(this.timeStart, targetAnomaly.getCoordinates());
         this.targetAnomaly = targetAnomaly;
     }
 }

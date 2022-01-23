@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tour_flight")
@@ -28,8 +27,8 @@ public class TourFlight extends Flight {
     /**
      * Create planned tourist flight
      */
-    public TourFlight(Ship ship, int ticketPrice, Anomaly target, LocalDateTime timeEnd) {
-        super("Tourist", ship, "Planned", 0, Utility.tomorrow(), timeEnd, target);
+    public TourFlight(Ship ship, Anomaly target, int ticketPrice) {
+        super("Tourist", ship, "Planned", 0, Utility.tomorrow(), target);
         this.ticketPrice = ticketPrice;
         this.numberOfSeats = ship.getCrewCapacity();
         this.report = null;

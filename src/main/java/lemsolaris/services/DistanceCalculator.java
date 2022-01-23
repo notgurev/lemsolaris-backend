@@ -1,26 +1,24 @@
 package lemsolaris.services;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import lemsolaris.model.other.Coordinates;
 
 import java.time.LocalDateTime;
 
-@Service
 public class DistanceCalculator {
-    @Value("${lemsolaris.base_coordinates.x}")
-    private int baseX = 0;
-    @Value("${lemsolaris.base_coordinates.y}")
-    private int baseY = 0;
-
+    private static final int BASE_X = 0;
+    private static final int BASE_Y = 0;
     private static final int SPEED_COORDS_PER_MINUTE = 100;
 
-    public int calculate(long x, long y) {
-        long diffX = baseX - x;
-        long diffY = baseY - y;
+    public static int calculateDistance(long x, long y) {
+        long diffX = BASE_X - x;
+        long diffY = BASE_Y - y;
         return (int) Math.sqrt(diffX * diffX + diffY * diffY);
     }
 
-    public LocalDateTime calculateEndTime(LocalDateTime start, long distance) {
+    public static LocalDateTime calculateEndTime(LocalDateTime start, Coordinates coordinates) {
+        long diffX = BASE_X - coordinates.getX();
+        long diffY = BASE_Y - coordinates.getY();
+        long distance = (long) Math.sqrt(diffX * diffX + diffY * diffY);
         return start.plusMinutes(SPEED_COORDS_PER_MINUTE * distance);
     }
 }
