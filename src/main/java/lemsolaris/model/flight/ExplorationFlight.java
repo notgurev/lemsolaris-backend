@@ -1,6 +1,8 @@
 package lemsolaris.model.flight;
 
 import lemsolaris.model.anomaly.Anomaly;
+import lemsolaris.model.employee.Employee;
+import lemsolaris.model.employee.Profession;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.reports.AnomalyReport;
 import lemsolaris.util.TimeUtil;
@@ -23,5 +25,13 @@ public class ExplorationFlight extends Flight {
 
     public ExplorationFlight(Ship ship, Anomaly target) {
         super(FlightType.Exploration, ship, FlightStatus.Planned, 0, TimeUtil.tomorrow(), target);
+    }
+
+    public Employee getScientistFromCrew() {
+        return super.getCrew().stream()
+                .filter(employee -> employee.getProfession() == Profession.Scientist)
+                .findFirst().orElseThrow(() -> {
+                    throw new RuntimeException("Failed to find scientist in crew");
+                });
     }
 }
