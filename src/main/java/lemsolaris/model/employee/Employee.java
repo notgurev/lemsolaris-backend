@@ -1,9 +1,12 @@
 package lemsolaris.model.employee;
 
+import lemsolaris.model.flight.Flight;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -36,6 +39,14 @@ public class Employee {
     @Column(name = "profession")
     @Enumerated(EnumType.STRING)
     private Profession profession;
+
+    @ManyToMany
+    @JoinTable(
+            name = "employee_flight",
+            inverseJoinColumns = {@JoinColumn(name = "flight_id", referencedColumnName = "id", nullable = false)},
+            joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "employee_id", nullable = false)}
+    )
+    private Collection<Flight> flights = new ArrayList<>();
 
     public Employee(String fullName, EmployeeType type, EmployeeStatus status,
                     int salary, int age, Profession profession) {

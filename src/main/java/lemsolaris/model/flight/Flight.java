@@ -1,6 +1,7 @@
 package lemsolaris.model.flight;
 
 import lemsolaris.model.anomaly.Anomaly;
+import lemsolaris.model.employee.Employee;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.other.StockResource;
 import lombok.Data;
@@ -59,6 +60,14 @@ public class Flight {
             inverseJoinColumns = {@JoinColumn(name = "resource_id", referencedColumnName = "id", nullable = false)}
     )
     private Collection<StockResource> resources = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "employee_flight",
+            joinColumns = {@JoinColumn(name = "flight_id", referencedColumnName = "id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "employee_id", nullable = false)}
+    )
+    private Collection<Employee> crew = new ArrayList<>();
 
     public Flight(FlightType type, Ship ship, FlightStatus status, int seatsTaken,
                   LocalDateTime timeStart, Anomaly targetAnomaly) {
