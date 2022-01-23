@@ -1,6 +1,8 @@
 package lemsolaris.model.reports;
 
 import lemsolaris.model.anomaly.Anomaly;
+import lemsolaris.model.anomaly.AnomalyType;
+import lemsolaris.model.anomaly.HazardLevel;
 import lemsolaris.model.employee.Employee;
 import lemsolaris.model.flight.Flight;
 import lombok.Data;
@@ -24,10 +26,10 @@ public class AnomalyReport {
     private boolean successful;
 
     @Column(name = "anomaly_type")
-    private String anomalyType;
+    private AnomalyType anomalyType;
 
     @Column(name = "anomaly_hazard_level")
-    private String anomalyHazardLevel;
+    private HazardLevel anomalyHazardLevel;
 
     @Column(name = "anomaly_flight_radius")
     private int anomalyFlightRadius;
