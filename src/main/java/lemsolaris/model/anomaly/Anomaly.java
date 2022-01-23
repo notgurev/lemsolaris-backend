@@ -16,7 +16,8 @@ public class Anomaly {
     private Long id;
 
     @Column(name = "status_of_anomaly")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AnomalyStatus status;
 
     @Column(name = "type_of_anomaly")
     private String type;
@@ -31,7 +32,7 @@ public class Anomaly {
     @JoinColumn(name = "coords_id", referencedColumnName = "id")
     private Coordinates coordinates;
 
-    public Anomaly(String status, String type, String hazardLevel, int flightRadius, Coordinates coordinates) {
+    public Anomaly(AnomalyStatus status, String type, String hazardLevel, int flightRadius, Coordinates coordinates) {
         this.status = status;
         this.type = type;
         this.hazardLevel = hazardLevel;

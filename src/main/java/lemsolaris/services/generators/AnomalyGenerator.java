@@ -1,6 +1,7 @@
 package lemsolaris.services.generators;
 
 import lemsolaris.model.anomaly.Anomaly;
+import lemsolaris.model.anomaly.AnomalyStatus;
 import lemsolaris.model.other.Coordinates;
 import lemsolaris.repositories.AnomalyRepository;
 import lemsolaris.repositories.CoordinatesRepository;
@@ -38,7 +39,7 @@ public class AnomalyGenerator {
         int x = randomIntInRange(baseX - maxDistance, baseX + maxDistance);
         int y = randomIntInRange(baseY - maxDistance, baseY + maxDistance);
         Coordinates coordinates = new Coordinates(x, y);
-        Anomaly anomaly = new Anomaly("Unexplored", null, null, 10, coordinates);
+        Anomaly anomaly = new Anomaly(AnomalyStatus.Unexplored, null, null, 10, coordinates);
         coordinatesRepository.save(coordinates);
         anomalyRepository.save(anomaly);
         return anomaly.getId();
@@ -46,7 +47,7 @@ public class AnomalyGenerator {
 
     public void exploreAnomaly(long id) {
         anomalyRepository.findById(id).ifPresent(anomaly -> {
-            anomaly.setStatus("Explored");
+            anomaly.setStatus(AnomalyStatus.Explored);
             anomaly.setHazardLevel(Utility.randomStringFromArray(hazardLevels));
             anomaly.setType(Utility.randomStringFromArray(anomalyTypes));
             if (anomaly.getHazardLevel().equals("Dangerous")) {

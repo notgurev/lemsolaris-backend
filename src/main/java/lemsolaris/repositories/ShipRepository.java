@@ -10,6 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ShipRepository extends JpaRepository<Ship, Long> {
-    @Query("select s from Ship s where s.shipType = :shipType and s.fuelCapacity > :fuelCapacity")
     List<Ship> findAllByShipTypeAndFuelCapacityGreaterThan(ShipType shipType, int fuelCapacity);
 }
