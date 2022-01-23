@@ -16,4 +16,5 @@ public interface EmployeeRepository<T extends Employee> extends JpaRepository<T,
 //    List<T> findCandidates();
 
     Collection<T> findEmployeesByStatus(EmployeeStatus status);
+
 }

@@ -4,14 +4,18 @@ import com.github.javafaker.Faker;
 import lemsolaris.model.employee.Employee;
 import lemsolaris.model.employee.EmployeePhantom;
 import lemsolaris.model.employee.EmployeeStatus;
+import lemsolaris.model.employee.EmployeeType;
 import lemsolaris.repositories.EmployeeRepository;
 import lemsolaris.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static lemsolaris.util.RandomUtil.randomIntInRange;
 
@@ -75,12 +79,32 @@ public class EmployeeService {
 
         EmployeePhantom employeePhantom = new EmployeePhantom();
 
-        //я хз, в human надо добавить список людей которых знает человек. и оттуда любого умершего данные в фантома переносить.
+
+        ArrayList<Employee> employeeArrayList = (ArrayList<Employee>) employeeRepository.findEmployeesByStatus(EmployeeStatus.Dead).stream().collect(Collectors.toList());
+
+        if(employeeArrayList.isEmpty()){
+            throw new RuntimeException("No dead peoples");
+        }
+
+        int random_int = randomIntInRange(1, employeeArrayList.size());
+
+
+        employeePhantom.setFullName(employeeArrayList.get(random_int).getFullName());
+        employeePhantom.setAge(employeeArrayList.get(random_int).getAge());
+        employeePhantom.setProfession(employeeArrayList.get(random_int).getProfession());
+        employeePhantom.setType(EmployeeType.Phantom);
+        employeePhantom.setStatus(EmployeeStatus.Hired);
+        employeePhantom.setId(employeeArrayList.get(random_int).getId());
+        employeePhantom.setSalary(0);
+
 
         Employee employee = opt.get();
+        //тут нужно чтобы только у одного чела мог быть фантом.
+        //и по времени убивать его
         employeePhantom.setHumanHost(employee);
         employeePhantom.setLifetimeStart(TimeUtil.now());
         employeePhantom.setLifetimeStart(TimeUtil.now().plusDays(randomIntInRange(1, 10)));
 
+        employeeRepository.save(employeePhantom);
     }
 }
