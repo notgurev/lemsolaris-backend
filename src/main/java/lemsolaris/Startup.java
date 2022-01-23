@@ -1,6 +1,9 @@
 package lemsolaris;
 
+import com.github.javafaker.Faker;
 import lemsolaris.model.employee.EmployeeHuman;
+import lemsolaris.model.employee.EmployeeStatus;
+import lemsolaris.model.employee.Profession;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.other.ShipType;
 import lemsolaris.model.other.StockResource;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 
+import static lemsolaris.util.RandomUtil.randomFromArray;
 import static lemsolaris.util.RandomUtil.randomIntInRange;
 
 @Component
@@ -50,10 +54,23 @@ public class Startup {
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void fillTables() {
+        long start = System.nanoTime();
         // Employees
+        Faker faker = new Faker();
         {
+            Profession[] professions = {Profession.Doctor, Profession.Pilot,
+                    Profession.Scientist, Profession.Scientist};
             for (int i = 0; i < 100; i++) {
-                new EmployeeHuman();
+                EmployeeHuman e = new EmployeeHuman(
+                        faker.name().fullName(),
+                        EmployeeStatus.Candidate,
+                        randomIntInRange(1, 5) * 1000,
+                        randomIntInRange(20, 60),
+                        randomFromArray(professions),
+                        randomIntInRange(50, 200),
+                        randomIntInRange(2, 5)
+                );
+                humanEmployeeRepository.save(e);
             }
         }
 
@@ -106,7 +123,8 @@ public class Startup {
             flightCreator.createTourFlightToAnomaly(2, 1000);
         }
 
-        logger.info("Startup initialisation finished");
+        long elapsedTime = System.nanoTime() - start;
+        logger.info("Startup initialisation finished in " + elapsedTime / Math.pow(10, 9) + " seconds");
     }
 }
 
