@@ -7,6 +7,7 @@ import lemsolaris.repositories.FlightRepository;
 import lemsolaris.repositories.ShipRepository;
 import lemsolaris.repositories.StockResourceRepository;
 import lemsolaris.services.generators.AnomalyGenerator;
+import lemsolaris.services.generators.TouristGenerator;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -21,16 +22,19 @@ public class CommandLineAppStartupRunner {
     private final AnomalyGenerator anomalyGenerator;
     private final StockResourceRepository resourceRepository;
     private final ShipRepository shipRepository;
+    private final TouristGenerator touristGenerator;
 
     @Autowired
     public CommandLineAppStartupRunner(FlightRepository<TourFlight> tourFlightRepository,
                                        AnomalyGenerator anomalyGenerator,
                                        StockResourceRepository resourceRepository,
-                                       ShipRepository shipRepository) {
+                                       ShipRepository shipRepository,
+                                       TouristGenerator touristGenerator) {
         this.tourFlightRepository = tourFlightRepository;
         this.anomalyGenerator = anomalyGenerator;
         this.resourceRepository = resourceRepository;
         this.shipRepository = shipRepository;
+        this.touristGenerator = touristGenerator;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -62,6 +66,11 @@ public class CommandLineAppStartupRunner {
             resourceRepository.save(res);
             resourceRepository.save(new StockResource("Fuel", 5000, 10));
             tourFlight.getResources().add(res);
+        }
+
+        // Tourists
+        {
+            touristGenerator.generateTourists(50);
         }
     }
 }
