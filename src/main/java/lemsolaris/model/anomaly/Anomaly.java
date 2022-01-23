@@ -3,139 +3,37 @@ package lemsolaris.model.anomaly;
 import lemsolaris.model.reports.AnomalyReport;
 import lemsolaris.model.other.Coordinates;
 import lemsolaris.model.flight.FlightAnomalyOrder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 @Table(name = "anomaly")
+@Getter
+@Setter
 public class Anomaly {
-    private int id;
-    private String statusOfAnomaly;
-    private String typeOfAnomaly;
-    private String anomalyHazardLevel;
-    private int flightRadius;
-    private Integer coordsId;
-    private Coordinates coordinatesByCoordsId;
-    private Collection<AnomalyReport> anomalyReportsById;
-    private Collection<FlightAnomalyOrder> flightAnomalyOrdersById;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public int getId() {
-        return id;
-    }
+    private int id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Basic
     @Column(name = "status_of_anomaly", nullable = false)
-    public String getStatusOfAnomaly() {
-        return statusOfAnomaly;
-    }
-
-    public void setStatusOfAnomaly(String statusOfAnomaly) {
-        this.statusOfAnomaly = statusOfAnomaly;
-    }
-
-    @Basic
+    private String statusOfAnomaly;
     @Column(name = "type_of_anomaly", nullable = true)
-    public String getTypeOfAnomaly() {
-        return typeOfAnomaly;
-    }
-
-    public void setTypeOfAnomaly(String typeOfAnomaly) {
-        this.typeOfAnomaly = typeOfAnomaly;
-    }
-
-    @Basic
+    private String typeOfAnomaly;
     @Column(name = "anomaly_hazard_level", nullable = true)
-    public String getAnomalyHazardLevel() {
-        return anomalyHazardLevel;
-    }
-
-    public void setAnomalyHazardLevel(String anomalyHazardLevel) {
-        this.anomalyHazardLevel = anomalyHazardLevel;
-    }
-
-    @Basic
+    private String anomalyHazardLevel;
     @Column(name = "flight_radius", nullable = false)
-    public int getFlightRadius() {
-        return flightRadius;
-    }
+    private int flightRadius;
 
-    public void setFlightRadius(int flightRadius) {
-        this.flightRadius = flightRadius;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "coords_id", nullable = false)
+    private Coordinates coordinatesByCoordsId;
+    @OneToMany
+    private Collection<FlightAnomalyOrder> flightAnomalyOrdersById;
+    @OneToMany
+    private Collection<AnomalyReport> anomalyReportsById;
 
-    @Basic
-    @Column(name = "coords_id", nullable = true)
-    public Integer getCoordsId() {
-        return coordsId;
-    }
-
-    public void setCoordsId(Integer coordsId) {
-        this.coordsId = coordsId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Anomaly that = (Anomaly) o;
-
-        if (id != that.id) return false;
-        if (flightRadius != that.flightRadius) return false;
-        if (statusOfAnomaly != null ? !statusOfAnomaly.equals(that.statusOfAnomaly) : that.statusOfAnomaly != null)
-            return false;
-        if (typeOfAnomaly != null ? !typeOfAnomaly.equals(that.typeOfAnomaly) : that.typeOfAnomaly != null)
-            return false;
-        if (anomalyHazardLevel != null ? !anomalyHazardLevel.equals(that.anomalyHazardLevel) : that.anomalyHazardLevel != null)
-            return false;
-        if (coordsId != null ? !coordsId.equals(that.coordsId) : that.coordsId != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (statusOfAnomaly != null ? statusOfAnomaly.hashCode() : 0);
-        result = 31 * result + (typeOfAnomaly != null ? typeOfAnomaly.hashCode() : 0);
-        result = 31 * result + (anomalyHazardLevel != null ? anomalyHazardLevel.hashCode() : 0);
-        result = 31 * result + flightRadius;
-        result = 31 * result + (coordsId != null ? coordsId.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "coords_id", referencedColumnName = "id", insertable = false, updatable = false)
-    public Coordinates getCoordinatesByCoordsId() {
-        return coordinatesByCoordsId;
-    }
-
-    public void setCoordinatesByCoordsId(Coordinates coordinatesByCoordsId) {
-        this.coordinatesByCoordsId = coordinatesByCoordsId;
-    }
-
-    @OneToMany(mappedBy = "anomalyByAnomalyId")
-    public Collection<AnomalyReport> getAnomalyReportsById() {
-        return anomalyReportsById;
-    }
-
-    public void setAnomalyReportsById(Collection<AnomalyReport> anomalyReportsById) {
-        this.anomalyReportsById = anomalyReportsById;
-    }
-
-    @OneToMany(mappedBy = "anomalyByAnomalyId")
-    public Collection<FlightAnomalyOrder> getFlightAnomalyOrdersById() {
-        return flightAnomalyOrdersById;
-    }
-
-    public void setFlightAnomalyOrdersById(Collection<FlightAnomalyOrder> flightAnomalyOrdersById) {
-        this.flightAnomalyOrdersById = flightAnomalyOrdersById;
-    }
 }

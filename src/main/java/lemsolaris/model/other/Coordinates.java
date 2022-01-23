@@ -1,7 +1,6 @@
 package lemsolaris.model.other;
 
 import lemsolaris.model.anomaly.Anomaly;
-import lemsolaris.model.weather.WeatherForecast;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -13,9 +12,9 @@ public class Coordinates {
     private int x;
     private int y;
     private Collection<Anomaly> anomaliesById;
-    private Collection<WeatherForecast> weatherForecastsById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -76,12 +75,4 @@ public class Coordinates {
         this.anomaliesById = anomaliesById;
     }
 
-    @OneToMany(mappedBy = "coordinatesByCoordsId")
-    public Collection<WeatherForecast> getWeatherForecastsById() {
-        return weatherForecastsById;
-    }
-
-    public void setWeatherForecastsById(Collection<WeatherForecast> weatherForecastsById) {
-        this.weatherForecastsById = weatherForecastsById;
-    }
 }

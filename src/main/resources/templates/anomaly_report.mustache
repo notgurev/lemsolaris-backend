@@ -1,0 +1,16 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Anomalies</title>
+</head>
+<body>
+{{#anomalyReport}}
+    Имя автора отчета - {{employeeByAuthorId.fullName}} <br>
+    ID вылета - {{flightId}}<br>
+    Успешность - {{success}}<br>
+    Тип аномалии - {{anomalyType}}<br>
+    Тип опасности - {{anomalyHazardLevel}}<br>
+    Расстояние подлета - {{anomalyFlightRadius}}<br>
+{{/anomalyReport}}
+</body>
+</html>

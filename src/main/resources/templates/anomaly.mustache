@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Explored Anomalies</title>
+    <style>
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+            border: 5px solid #fff;
+            border-top: 5px solid #fff;
+            border-bottom: 3px solid #fff;
+            border-collapse: collapse;
+            outline: 3px solid #ffd300;
+            font-size: 15px;
+            background: #fff !important;
+        }
+
+        .table th {
+            font-weight: bold;
+            padding: 7px;
+            background: #ffd300;
+            border: none;
+            text-align: left;
+            font-size: 15px;
+            border-top: 3px solid #fff;
+            border-bottom: 3px solid #ffd300;
+        }
+
+        .table td {
+            padding: 7px;
+            border: none;
+            border-top: 3px solid #fff;
+            border-bottom: 3px solid #fff;
+            font-size: 15px;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background: #f8f8f8 !important;
+        }
+    </style>
+</head>
+<body>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Hazard Level</th>
+        <th>Flight Radius</th>
+        <th>X Coordinates</th>
+        <th>Y Coordinates</th>
+        <th>Отчет</th>
+        <th>Создать туристический вылет</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#anomaly}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{statusOfAnomaly}}</td>
+            <td>{{typeOfAnomaly}}</td>
+            <td>{{anomalyHazardLevel}}</td>
+            <td>{{flightRadius}}</td>
+            <td>{{coordinatesByCoordsId.x}}</td>
+            <td>{{coordinatesByCoordsId.y}}</td>
+            <td>
+                <form id="rep_id" action="/anomalyReport" method="GET">
+                    <button type="submit" name="id" value="{{id}}">Посмотреть отчет</button>
+                </form>
+            </td>
+            <td>
+                <form action="/newTourFlight" method="GET">
+                    <label>
+                        Цена билета:
+                        <input type="text" name="ticketMoney">
+                    </label>
+                    <br>
+                    <br>
+                    <button type="submit" name="id" value="{{id}}" >Создать туристический вылет</button>
+                </form>
+            </td>
+        </tr>
+    {{/anomaly}}
+    </tbody>
+</table>
+</body>
+</html>
