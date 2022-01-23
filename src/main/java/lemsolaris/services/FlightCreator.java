@@ -49,16 +49,25 @@ public class FlightCreator {
 
         Ship ship = shipService.findSuitableShip("Exploration", distance);
         ExplorationFlight explorationFlight = new ExplorationFlight(
-                ship,
-                anomaly,
-                distanceCalculator.calculateEndTime(Utility.tomorrow(), distance)
+                ship, anomaly, distanceCalculator.calculateEndTime(Utility.tomorrow(), distance)
         );
         explorationFlights.save(explorationFlight);
         // todo add employees
         return explorationFlight.getId();
     }
 
-    public long createTourFlightToAnomaly(long id) {
-        return 0;
+    public long createTourFlightToAnomaly(long id, int ticketPrice) {
+        Anomaly anomaly = anomalyService.findAnomalyById(id);
+
+        Coordinates c = anomaly.getCoordinates();
+        int distance = distanceCalculator.calculate(c.getX(), c.getY());
+
+        Ship ship = shipService.findSuitableShip("Tourist", distance);
+        TourFlight tourFlight = new TourFlight(
+                ship, ticketPrice, anomaly, distanceCalculator.calculateEndTime(Utility.tomorrow(), distance)
+        );
+        touristFlights.save(tourFlight); // todo superclass
+        // todo add employees and tourists
+        return tourFlight.getId();
     }
 }

@@ -90,7 +90,8 @@ public class MustacheController {
 
     @GetMapping("/createTour")
     public ModelAndView createTour(Map<String, Object> model, @RequestParam(name = "id") int id) {
-        flightCreator.createTourFlightToAnomaly(2);
+        // TODO ADD TICKET PRICE
+        flightCreator.createTourFlightToAnomaly(2, 1000);
         return new ModelAndView("flights", model);
     }
 

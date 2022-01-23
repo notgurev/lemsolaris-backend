@@ -29,7 +29,7 @@ public class TourFlight extends Flight {
      * Create planned tourist flight
      */
     public TourFlight(Ship ship, int ticketPrice, Anomaly target, LocalDateTime timeEnd) {
-        super("Sightseeing", ship, "Planned", 0, Utility.tomorrow(), timeEnd, target);
+        super("Tourist", ship, "Planned", 0, Utility.tomorrow(), timeEnd, target);
         this.ticketPrice = ticketPrice;
         this.numberOfSeats = ship.getCrewCapacity();
         this.report = null;
