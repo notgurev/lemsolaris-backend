@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import lemsolaris.model.employee.EmployeeHuman;
 import lemsolaris.model.employee.EmployeeStatus;
 import lemsolaris.model.employee.Profession;
+import lemsolaris.model.other.ResourceType;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.other.ShipType;
 import lemsolaris.model.other.StockResource;
@@ -76,8 +77,10 @@ public class Startup {
 
         // Resources
         {
-            resourceRepository.save(new StockResource("Money", 10000, 1));
-            resourceRepository.save(new StockResource("Fuel", 5000, 10));
+            resourceRepository.save(new StockResource(ResourceType.Money, 10000, 1))
+            resourceRepository.save(new StockResource(ResourceType.Fuel, 5000, 2));
+            resourceRepository.save(new StockResource(ResourceType.Medkit, 100, 10));
+            resourceRepository.save(new StockResource(ResourceType.Lunchbox, 50, 5));
         }
 
         // Anomalies

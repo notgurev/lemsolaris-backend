@@ -16,7 +16,8 @@ public class StockResource {
     private Long id;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ResourceType type;
 
     @Column(name = "quantity")
     private int quantity;
@@ -24,7 +25,7 @@ public class StockResource {
     @Column(name = "market_price")
     private int marketPrice;
 
-    public StockResource(String type, int quantity, int marketPrice) {
+    public StockResource(ResourceType type, int quantity, int marketPrice) {
         this.type = type;
         this.quantity = quantity;
         this.marketPrice = marketPrice;
