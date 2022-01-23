@@ -1,7 +1,9 @@
 package lemsolaris;
 
 import lemsolaris.services.AnomalyService;
+import lemsolaris.services.FlightCreator;
 import lemsolaris.services.FlightService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +17,12 @@ import java.util.Map;
 public class MustacheController {
     final AnomalyService anomalyService;
     final FlightService flightService;
+    final FlightCreator flightCreator;
 
-    public MustacheController(AnomalyService anomalyService, FlightService flightService) {
+    public MustacheController(AnomalyService anomalyService, FlightService flightService, FlightCreator flightCreator) {
         this.anomalyService = anomalyService;
         this.flightService = flightService;
+        this.flightCreator = flightCreator;
     }
 
     @GetMapping("/main")
@@ -43,6 +47,7 @@ public class MustacheController {
 
     @GetMapping("/flights")
     public ModelAndView flights(Map<String, Object> model) {
+        System.out.println(flightService.getFlights());
         model.put("flight", flightService.getFlights());
         return new ModelAndView("flights", model);
     }
@@ -60,14 +65,16 @@ public class MustacheController {
     }
 
 
-//    @GetMapping("/createExplore")
-//    public ModelAndView createExplore(Map<String, Object> model) {
-//        return new ModelAndView("createTour", model);
-//    }
-//
-//    @GetMapping("/createTour")
-//    public ModelAndView createTour(Map<String, Object> model) {
-//        return new ModelAndView("createExplore", model);
-//    }
+    @GetMapping("/createExplore")
+    public ModelAndView createExplore(Map<String, Object> model, @RequestParam(name = "id") int id) {
+        flightCreator.createTourFlightToAnomaly(id);
+        return new ModelAndView("flights", model);
+    }
+
+    @GetMapping("/createTour")
+    public ModelAndView createTour(Map<String, Object> model, @RequestParam(name = "id") int id) {
+        flightCreator.createExplorationToAnomaly(id);
+        return new ModelAndView("flights", model);
+    }
 
 }

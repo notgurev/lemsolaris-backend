@@ -79,7 +79,7 @@
             <td>{{coordinates.y}}</td>
             {{#fEanomalies}}
                 <td>
-                    <form action="/newTourFlight" method="GET">
+                    <form action="/createTour" method="GET">
                         <label>
                             Цена билета:
                             <input type="text" name="ticketMoney">
@@ -91,7 +91,7 @@
             {{/fEanomalies}}
             {{#fUanomalies}}
                 <td>
-                    <form action="/newExploreFlight" method="GET">
+                    <form action="/createExplore" method="GET">
                         <br>
                         <button type="submit" name="id" value="{{id}}">Создать экспедицию</button>
                     </form>
