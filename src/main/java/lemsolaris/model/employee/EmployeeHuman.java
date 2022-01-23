@@ -1,15 +1,16 @@
 package lemsolaris.model.employee;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee_human")
 @Data
+@NoArgsConstructor
 public class EmployeeHuman extends Employee {
     @Column(name = "current_MHI")
     private int currentMHI;
@@ -19,4 +20,12 @@ public class EmployeeHuman extends Employee {
 
     @Column(name = "mental_resistance")
     private int mentalResistance;
+
+    public EmployeeHuman(String fullName, String status, int salary, int age,
+                         String profession, int baseMHI, int mentalResistance) {
+        super(fullName, "Human", status, salary, age, profession);
+        this.currentMHI = baseMHI;
+        this.baseMHI = baseMHI;
+        this.mentalResistance = mentalResistance;
+    }
 }

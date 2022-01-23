@@ -2,6 +2,7 @@ package lemsolaris.model.employee;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "employee")
 @Data
+@NoArgsConstructor
 public  class Employee {
     @Id
     @Column(name = "employee_id")
@@ -33,4 +35,13 @@ public  class Employee {
 
     @Column(name = "profession")
     private String profession;
+
+    public Employee(String fullName, String type, String status, int salary, int age, String profession) {
+        this.fullName = fullName;
+        this.type = type;
+        this.status = status;
+        this.salary = salary;
+        this.age = age;
+        this.profession = profession;
+    }
 }
