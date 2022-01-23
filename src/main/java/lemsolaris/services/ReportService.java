@@ -3,6 +3,8 @@ package lemsolaris.services;
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.employee.Employee;
 import lemsolaris.model.flight.ExplorationFlight;
+import lemsolaris.model.flight.Flight;
+import lemsolaris.model.flight.FlightType;
 import lemsolaris.model.flight.TourFlight;
 import lemsolaris.model.reports.AnomalyReport;
 import lemsolaris.model.reports.TourReport;
@@ -33,7 +35,12 @@ public class ReportService {
         return tourReportRepository.getById(flightId);
     }
 
-    public void createAnomalyReport(ExplorationFlight flight) {
+    public void createReport(Flight f) {
+        if (f.getType() == FlightType.Tourist) createTourReport((TourFlight) f);
+        else createAnomalyReport((ExplorationFlight) f);
+    }
+
+    private void createAnomalyReport(ExplorationFlight flight) {
         Employee scientist = flight.getScientistFromCrew();
         Anomaly a = anomalyService.exploreAnomaly(flight.getTargetAnomaly());
         AnomalyReport anomalyReport = new AnomalyReport(
@@ -42,7 +49,7 @@ public class ReportService {
         anomalyReportRepository.save(anomalyReport);
     }
 
-    public void createTourReport(TourFlight flight) {
+    private void createTourReport(TourFlight flight) {
         TourReport tourReport = new TourReport();
         tourReport.setSuccessful(true);
         tourReport.setFlight(flight);
