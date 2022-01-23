@@ -31,9 +31,9 @@ public class Anomaly {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coords_id", nullable = false)
     private Coordinates coordinatesByCoordsId;
-    @OneToMany
+    @OneToMany(mappedBy = "anomalyId")
     private Collection<FlightAnomalyOrder> flightAnomalyOrdersById;
-    @OneToMany
+    @OneToMany(mappedBy = "id")
     private Collection<AnomalyReport> anomalyReportsById;
 
 }
