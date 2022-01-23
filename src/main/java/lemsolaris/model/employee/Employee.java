@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "employee")
 @Data
-public abstract class Employee {
+public  class Employee {
     @Id
     @Column(name = "employee_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="employee_seq")

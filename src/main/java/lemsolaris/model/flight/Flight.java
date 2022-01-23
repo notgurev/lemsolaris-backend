@@ -19,7 +19,7 @@ import java.util.Collection;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-public abstract class Flight {
+public class Flight {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flight_seq")

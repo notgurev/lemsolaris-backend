@@ -1,8 +1,10 @@
 package lemsolaris;
 
+import lemsolaris.model.flight.Flight;
 import lemsolaris.services.AnomalyService;
 import lemsolaris.services.FlightCreator;
 import lemsolaris.services.FlightService;
+import lemsolaris.services.generators.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,19 +12,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/")
 public class MustacheController {
     final AnomalyService anomalyService;
+    final TourService tourService;
     final FlightService flightService;
     final FlightCreator flightCreator;
 
-    public MustacheController(AnomalyService anomalyService, FlightService flightService, FlightCreator flightCreator) {
+    public MustacheController(AnomalyService anomalyService, FlightService flightService, FlightCreator flightCreator, TourService tourService) {
         this.anomalyService = anomalyService;
         this.flightService = flightService;
         this.flightCreator = flightCreator;
+        this.tourService = tourService;
     }
 
     @GetMapping("/main")
@@ -34,7 +41,6 @@ public class MustacheController {
     public ModelAndView anomalies(Map<String, Object> model, @RequestParam(name = "type") String type) {
         model.put("fEanomalies", false);
         model.put("fUanomalies", false);
-        model.put("fFlights", false);
         if (type.equals("Explored")) {
             model.put("anomalies", anomalyService.getExploredAnomalies());
             model.put("fEanomalies", true);
@@ -47,20 +53,23 @@ public class MustacheController {
 
     @GetMapping("/flights")
     public ModelAndView flights(Map<String, Object> model) {
-        System.out.println(flightService.getFlights());
-        model.put("flight", flightService.getFlights());
+        ArrayList<Flight> flights = (ArrayList<Flight>) flightService.getFlights();
+        model.put("flight", flights);
         return new ModelAndView("flights", model);
     }
 
     @GetMapping("/report")
-    public ModelAndView report(Map<String, Object> model, @RequestParam(name = "id") int id) {
-        model.put("flag", false);
-        model.put("nflag", true);
-        if (flightService.getExplorationReport(id) != null) {
-            model.put("flag", true);
-            model.put("nflag", false);
+    public ModelAndView report(Map<String, Object> model, @RequestParam(name = "id") int id, @RequestParam(name = "type") String type) {
+        if (type.equals("Exploration")) {
+            if (flightService.getExplorationReport(id) != null) {
+                model.put("report_by_id", flightService.getExplorationReport(id));
+            }
         }
-        model.put("report_by_id", flightService.getExplorationReport(id));
+        else if (type.equals("Tour")){
+            if(tourService.getTourReportById(id) != null){
+                model.put("report_by_id", tourService.getTourReportById(id));
+            }
+        }
         return new ModelAndView("report", model);
     }
 

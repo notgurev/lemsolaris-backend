@@ -27,8 +27,6 @@
         }
 
         .table td {
-            display: table-cell;
-            vertical-align: middle;
             padding: 7px;
             border: none;
             border-top: 3px solid #fff;
@@ -46,20 +44,16 @@
     <button type="submit">Назад</button>
 </form>
 
-{{#nflag}}
-    Отчет еще не создан
-{{/nflag}}
-
-{{#flag}}
 <table class="table">
     <thead>
     <tr>
-        <td>ID<td>
-        <td>Author<td>
-        <td>successful<td>
-        <td>Type<td>
-        <td>HazardLevel<td>
-        <td>FlightRadius<td>
+        <td>ID</td>
+        <td>Author Name</td>
+        <td>Author Age</td>
+        <td>successful</td>
+        <td>Type</td>
+        <td>HazardLevel</td>
+        <td>FlightRadius</td>
     </tr>
     </thead>
     <tbody>
@@ -68,7 +62,8 @@
             <td>{{id}}</td>
             <td>
                 {{author.fullName}}
-                <br>
+            </td>
+            <td>
                 {{author.age}}
             </td>
             <td>{{successful}}</td>
@@ -79,6 +74,5 @@
     {{/report_by_id}}
     </tbody>
 </table>
-{{/flag}}
 </body>
 </html>
