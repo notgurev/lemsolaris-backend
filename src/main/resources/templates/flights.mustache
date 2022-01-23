@@ -40,15 +40,16 @@
 <form action="/main">
     <button type="submit">Назад</button>
 </form>
+
 <table class="table">
     <thead>
     <tr>
         <th>ID</th>
+        <th>Anomaly ID</th>
         <th>Type</th>
         <th>Status</th>
         <th>TimeStart</th>
         <th>TimeEnd</th>
-        <th>Ship</th>
         <th>Report</th>
     </tr>
     </thead>
@@ -56,14 +57,11 @@
     {{#flight}}
         <tr>
             <td>{{id}}</td>
+            <td>{{targetAnomaly.id}}</td>
             <td>{{type}}</td>
             <td>{{status}}</td>
             <td>{{timeStart}}</td>
             <td>{{timeEnd}}</td>
-            <td>
-             {{ship.id}}
-             {{ship.shipType}}
-            </td>
             <td>
                 <form action="/report" method="GET">
                     <input hidden name="type" value="{{type}}"/>

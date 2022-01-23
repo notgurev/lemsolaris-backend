@@ -43,7 +43,11 @@
 <form action="/flights">
     <button type="submit">Назад</button>
 </form>
+{{#nflag}}
+    Отчет еще не создан
+{{/nflag}}
 
+{{#flag}}
 <table class="table">
     <thead>
     <tr>
@@ -74,5 +78,6 @@
     {{/report_by_id}}
     </tbody>
 </table>
+{{/flag}}
 </body>
 </html>

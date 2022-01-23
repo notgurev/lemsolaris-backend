@@ -60,14 +60,20 @@ public class MustacheController {
 
     @GetMapping("/report")
     public ModelAndView report(Map<String, Object> model, @RequestParam(name = "id") int id, @RequestParam(name = "type") String type) {
+        model.put("flag", false);
+        model.put("nflag", true);
         if (type.equals("Exploration")) {
-            if (flightService.getExplorationReport(id) != null) {
-                model.put("report_by_id", flightService.getExplorationReport(id));
+            if (flightService.getExplorationReport(id).isPresent()) {
+                model.put("nflag", false);
+                model.put("flag", true);
+                model.put("report_by_id", flightService.getExplorationReport(id).get());
             }
         }
         else if (type.equals("Tour")){
-            if(tourService.getTourReportById(id) != null){
-                model.put("report_by_id", tourService.getTourReportById(id));
+            if(tourService.getTourReportById(id).isPresent()){
+                model.put("nflag", false);
+                model.put("flag", true);
+                model.put("report_by_id", tourService.getTourReportById(id).get());
             }
         }
         return new ModelAndView("report", model);
@@ -76,13 +82,15 @@ public class MustacheController {
 
     @GetMapping("/createExplore")
     public ModelAndView createExplore(Map<String, Object> model, @RequestParam(name = "id") int id) {
-        flightCreator.createTourFlightToAnomaly(id);
+        flightCreator.createExplorationToAnomaly(id);
+        ArrayList<Flight> flights = (ArrayList<Flight>) flightService.getFlights();
+        model.put("flight", flights);
         return new ModelAndView("flights", model);
     }
 
     @GetMapping("/createTour")
     public ModelAndView createTour(Map<String, Object> model, @RequestParam(name = "id") int id) {
-        flightCreator.createExplorationToAnomaly(id);
+        flightCreator.createTourFlightToAnomaly(2);
         return new ModelAndView("flights", model);
     }
 

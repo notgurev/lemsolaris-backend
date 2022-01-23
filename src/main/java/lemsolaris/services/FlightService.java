@@ -1,6 +1,5 @@
 package lemsolaris.services;
 
-import lemsolaris.model.flight.ExplorationFlight;
 import lemsolaris.model.flight.Flight;
 import lemsolaris.model.reports.AnomalyReport;
 import lemsolaris.repositories.AnomalyReportRepository;
@@ -9,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class FlightService {
     final FlightRepository<Flight> flightRepository;
-    final
-    AnomalyReportRepository anomalyReportRepository;
+    final AnomalyReportRepository anomalyReportRepository;
 
 
     @Autowired
@@ -28,8 +27,8 @@ public class FlightService {
         return flightRepository.findAll();
     }
 
-    public AnomalyReport getExplorationReport(long id) {
-        return anomalyReportRepository.findById(id).get();
+    public Optional<AnomalyReport> getExplorationReport(long id) {
+        return anomalyReportRepository.findById(id);
     }
 
 }
