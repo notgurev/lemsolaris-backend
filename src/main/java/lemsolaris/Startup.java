@@ -59,12 +59,41 @@ public class Startup {
         // Employees
         Faker faker = new Faker();
         {
+            // Alive, candidates
             Profession[] professions = {Profession.Doctor, Profession.Pilot,
                     Profession.Scientist, Profession.Scientist};
             for (int i = 0; i < 50; i++) {
                 EmployeeHuman e = new EmployeeHuman(
                         faker.name().fullName(),
                         EmployeeStatus.Candidate,
+                        randomIntInRange(1, 5) * 1000,
+                        randomIntInRange(20, 60),
+                        randomFromArray(professions),
+                        randomIntInRange(50, 200),
+                        randomIntInRange(2, 5)
+                );
+                humanEmployeeRepository.save(e);
+            }
+
+            // Hired
+            for (int i = 0; i < 20; i++) {
+                EmployeeHuman e = new EmployeeHuman(
+                        faker.name().fullName(),
+                        EmployeeStatus.Hired,
+                        randomIntInRange(1, 5) * 1000,
+                        randomIntInRange(20, 60),
+                        randomFromArray(professions),
+                        randomIntInRange(50, 200),
+                        randomIntInRange(2, 5)
+                );
+                humanEmployeeRepository.save(e);
+            }
+
+            // Dead
+            for (int i = 0; i < 20; i++) {
+                EmployeeHuman e = new EmployeeHuman(
+                        faker.name().fullName(),
+                        EmployeeStatus.Dead,
                         randomIntInRange(1, 5) * 1000,
                         randomIntInRange(20, 60),
                         randomFromArray(professions),
