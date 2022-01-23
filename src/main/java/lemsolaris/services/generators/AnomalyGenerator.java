@@ -49,6 +49,9 @@ public class AnomalyGenerator {
             anomaly.setStatus("Explored");
             anomaly.setHazardLevel(Utility.randomStringFromArray(hazardLevels));
             anomaly.setType(Utility.randomStringFromArray(anomalyTypes));
+            if (anomaly.getHazardLevel().equals("Dangerous")) {
+                anomaly.setFlightRadius(randomIntInRange(50, 100));
+            }
         });
     }
 }
