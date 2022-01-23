@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "anomaly")
 public class Anomaly {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="anomaly_seq")
     private Long id;
 
     @Column(name = "status_of_anomaly")

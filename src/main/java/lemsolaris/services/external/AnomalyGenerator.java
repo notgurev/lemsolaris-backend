@@ -4,10 +4,13 @@ import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.other.Coordinates;
 import lemsolaris.repositories.AnomalyRepository;
 import lemsolaris.repositories.CoordinatesRepository;
+import lemsolaris.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+
+import static lemsolaris.util.Utility.randomIntInRange;
 
 @Service
 @ComponentScan("application.yaml")
@@ -19,17 +22,19 @@ public class AnomalyGenerator {
     @Value("${lemsolaris.max_anomaly_distance}")
     private int maxDistance = 1000;
 
-    final AnomalyRepository anomalyRepository;
-    final CoordinatesRepository coordinatesRepository;
+    private static final String[] hazardLevels = {"Dangerous", "Non-dangerous"};
+    private static final String[] anomalyTypes = {"Structural", "Non-structural"};
+
+    private final AnomalyRepository anomalyRepository;
+    private final CoordinatesRepository coordinatesRepository;
 
     @Autowired
-    public AnomalyGenerator(AnomalyRepository anomalyRepository,
-                            CoordinatesRepository coordinatesRepository) {
+    public AnomalyGenerator(AnomalyRepository anomalyRepository, CoordinatesRepository coordinatesRepository) {
         this.anomalyRepository = anomalyRepository;
         this.coordinatesRepository = coordinatesRepository;
     }
 
-    public Long generateRandomAnomaly() {
+    public long generateRandomAnomaly() {
         int x = randomIntInRange(baseX - maxDistance, baseX + maxDistance);
         int y = randomIntInRange(baseY - maxDistance, baseY + maxDistance);
         Coordinates coordinates = new Coordinates(x, y);
@@ -39,7 +44,11 @@ public class AnomalyGenerator {
         return anomaly.getId();
     }
 
-    private static int randomIntInRange(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
+    public void exploreAnomaly(long id) {
+        anomalyRepository.findById(id).ifPresent(anomaly -> {
+            anomaly.setStatus("Explored");
+            anomaly.setHazardLevel(Utility.randomStringFromArray(hazardLevels));
+            anomaly.setType(Utility.randomStringFromArray(anomalyTypes));
+        });
     }
 }

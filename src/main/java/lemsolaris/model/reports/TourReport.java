@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class TourReport {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tour_report_seq")
     private Long id;
 
     @Column(name = "successful")
