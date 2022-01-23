@@ -18,8 +18,13 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+
     public Collection<Employee> getCandidates() {
         return employeeRepository.findEmployeesByStatus(EmployeeStatus.Candidate);
+    }
+
+    public Collection<Employee> getHired() {
+        return employeeRepository.findEmployeesByStatus(EmployeeStatus.Hired);
     }
 
     public void fireEmployee(long id) {
@@ -50,5 +55,6 @@ public class EmployeeService {
         }
 
         employee.setStatus(EmployeeStatus.Hired);
+        employeeRepository.save(employee);
     }
 }
