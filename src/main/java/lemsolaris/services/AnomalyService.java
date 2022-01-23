@@ -1,4 +1,4 @@
-package lemsolaris.services.external.service;
+package lemsolaris.services;
 
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.repositories.AnomalyRepository;
@@ -8,18 +8,17 @@ import java.util.Collection;
 
 @Service
 public class AnomalyService {
-    final
-    AnomalyRepository anomalyRepository;
+    private final AnomalyRepository anomalyRepository;
 
     public AnomalyService(AnomalyRepository anomalyRepository) {
         this.anomalyRepository = anomalyRepository;
     }
 
-    public Collection<Anomaly> getExploredAnomaly() {
+    public Collection<Anomaly> getExploredAnomalies() {
         return anomalyRepository.getAnomaliesByStatusAndHazardLevel("Explored", "Non-dangerous");
     }
 
-    public Collection<Anomaly> getUnexploredAnomaly() {
+    public Collection<Anomaly> getUnexploredAnomalies() {
         return anomalyRepository.getAnomaliesByStatus("Unexplored");
     }
 }

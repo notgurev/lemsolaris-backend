@@ -1,10 +1,7 @@
 package lemsolaris;
 
-import lemsolaris.repositories.FlightExploration;
-import lemsolaris.services.external.service.AnomalyService;
-import lemsolaris.services.external.service.FlightService;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lemsolaris.services.AnomalyService;
+import lemsolaris.services.FlightService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,11 +31,11 @@ public class MustacheController {
         model.put("fEanomalies", false);
         model.put("fUanomalies", false);
         model.put("fFlights", false);
-        if(type.equals("Explored")){
-            model.put("anomalies", anomalyService.getExploredAnomaly());
+        if (type.equals("Explored")) {
+            model.put("anomalies", anomalyService.getExploredAnomalies());
             model.put("fEanomalies", true);
-        }else if(type.equals("Unexplored")) {
-            model.put("anomalies", anomalyService.getUnexploredAnomaly());
+        } else if (type.equals("Unexplored")) {
+            model.put("anomalies", anomalyService.getUnexploredAnomalies());
             model.put("fUanomalies", true);
         }
         return new ModelAndView("anomalies", model);
@@ -54,11 +51,11 @@ public class MustacheController {
     public ModelAndView report(Map<String, Object> model, @RequestParam(name = "id") int id) {
         model.put("flag", false);
         model.put("nflag", true);
-        if(flightService.getReport(id) != null) {
+        if (flightService.getExplorationReport(id) != null) {
             model.put("flag", true);
             model.put("nflag", false);
         }
-        model.put("report_by_id", flightService.getReport(id));
+        model.put("report_by_id", flightService.getExplorationReport(id));
         return new ModelAndView("report", model);
     }
 

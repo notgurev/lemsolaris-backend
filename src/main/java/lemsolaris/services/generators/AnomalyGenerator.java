@@ -1,4 +1,4 @@
-package lemsolaris.services.external;
+package lemsolaris.services.generators;
 
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.other.Coordinates;

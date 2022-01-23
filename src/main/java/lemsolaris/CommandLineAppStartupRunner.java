@@ -6,7 +6,7 @@ import lemsolaris.model.other.StockResource;
 import lemsolaris.repositories.FlightRepository;
 import lemsolaris.repositories.ShipRepository;
 import lemsolaris.repositories.StockResourceRepository;
-import lemsolaris.services.external.AnomalyGenerator;
+import lemsolaris.services.generators.AnomalyGenerator;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

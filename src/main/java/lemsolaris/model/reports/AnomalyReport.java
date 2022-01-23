@@ -4,8 +4,6 @@ import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.employee.Employee;
 import lemsolaris.model.flight.Flight;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -15,7 +13,7 @@ import javax.persistence.*;
 public class AnomalyReport {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="anomaly_report_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "anomaly_report_seq")
     private Long id;
 
     @ManyToOne
