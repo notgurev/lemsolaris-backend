@@ -1,9 +1,12 @@
 package lemsolaris.model.reports;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "tour_report")
+@Data
 public class TourReport {
     @Id
     @Column(name = "id")

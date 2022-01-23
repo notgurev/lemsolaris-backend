@@ -3,6 +3,7 @@ package lemsolaris.model.reports;
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.employee.Employee;
 import lemsolaris.model.flight.Flight;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "anomaly_report")
-@Getter
-@Setter
+@Data
 public class AnomalyReport {
     @Id
     @Column(name = "id")

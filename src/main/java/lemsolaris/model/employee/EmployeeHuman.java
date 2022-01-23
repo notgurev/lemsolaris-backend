@@ -1,5 +1,6 @@
 package lemsolaris.model.employee;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "employee_human")
-@Getter
-@Setter
+@Data
 public class EmployeeHuman extends Employee {
     @Column(name = "current_MHI")
     private int currentMHI;

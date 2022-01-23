@@ -1,15 +1,15 @@
 package lemsolaris.model.flight;
 
 import lemsolaris.model.reports.TourReport;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "tour_flight")
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class TourFlight extends Flight {
     @Column(name = "ticket_price")
     private int ticketPrice;
@@ -20,9 +20,6 @@ public class TourFlight extends Flight {
     @OneToOne
     @JoinColumn(name = "report", referencedColumnName = "id")
     private TourReport report;
-
-    public TourFlight() {
-    }
 
     public TourFlight(int ticketPrice, int numberOfSeats, TourReport report) {
         this.ticketPrice = ticketPrice;

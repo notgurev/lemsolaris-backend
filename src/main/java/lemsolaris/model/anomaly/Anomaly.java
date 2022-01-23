@@ -1,14 +1,14 @@
 package lemsolaris.model.anomaly;
 
 import lemsolaris.model.other.Coordinates;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @Table(name = "anomaly")
 public class Anomaly {
     @Id
@@ -30,4 +30,12 @@ public class Anomaly {
     @OneToOne
     @JoinColumn(name = "coords_id", referencedColumnName = "id")
     private Coordinates coordinates;
+
+    public Anomaly(String status, String type, String hazardLevel, int flightRadius, Coordinates coordinates) {
+        this.status = status;
+        this.type = type;
+        this.hazardLevel = hazardLevel;
+        this.flightRadius = flightRadius;
+        this.coordinates = coordinates;
+    }
 }

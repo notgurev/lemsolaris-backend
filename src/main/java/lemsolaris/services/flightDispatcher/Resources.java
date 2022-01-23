@@ -1,11 +1,9 @@
 package lemsolaris.services.flightDispatcher;
 
-import lemsolaris.services.flightDispatcher.interfaces.IResources;
-
-public class Resources implements IResources {
+public class Resources {
 
 
-    public void return_resources(int flight_id){
+    public void return_resources(int flight_id) {
 
     }
 }

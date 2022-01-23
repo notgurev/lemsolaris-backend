@@ -1,15 +1,13 @@
 package lemsolaris.model.employee;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "employee")
-@Getter
-@Setter
+@Data
 public abstract class Employee {
     @Id
     @Column(name = "employee_id")

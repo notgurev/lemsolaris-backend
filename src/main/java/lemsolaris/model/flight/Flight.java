@@ -1,6 +1,7 @@
 package lemsolaris.model.flight;
 
 import lemsolaris.model.other.Ship;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "flight")
-@Getter
-@Setter
+@Data
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Flight {
     @Id

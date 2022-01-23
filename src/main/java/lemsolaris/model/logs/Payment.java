@@ -2,6 +2,7 @@ package lemsolaris.model.logs;
 
 import lemsolaris.model.employee.Employee;
 import lemsolaris.model.other.StockResource;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payment")
-@Getter
-@Setter
+@Data
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
