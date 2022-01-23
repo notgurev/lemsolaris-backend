@@ -1,5 +1,5 @@
 package lemsolaris.model.flight;
 
 public enum FlightStatus {
-    Planned, RequiresChanges, Finished, Ongoing
+    Planned, RequiresChanges, Finished, Ongoing, Cancelled
 }
