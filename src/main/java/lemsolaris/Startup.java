@@ -10,6 +10,8 @@ import lemsolaris.repositories.StockResourceRepository;
 import lemsolaris.services.FlightCreator;
 import lemsolaris.services.generators.AnomalyGenerator;
 import lemsolaris.services.generators.TouristGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -20,7 +22,7 @@ import javax.transaction.Transactional;
 import static lemsolaris.util.Utility.randomIntInRange;
 
 @Component
-public class CommandLineAppStartupRunner {
+public class Startup {
     private final AnomalyGenerator anomalyGenerator;
     private final StockResourceRepository resourceRepository;
     private final ShipRepository shipRepository;
@@ -28,13 +30,15 @@ public class CommandLineAppStartupRunner {
     private final FlightCreator flightCreator;
     private final EmployeeRepository<EmployeeHuman> humanEmployeeRepository;
 
+    private final Logger logger = LoggerFactory.getLogger(Startup.class);
+
     @Autowired
-    public CommandLineAppStartupRunner(AnomalyGenerator anomalyGenerator,
-                                       StockResourceRepository resourceRepository,
-                                       ShipRepository shipRepository,
-                                       TouristGenerator touristGenerator,
-                                       FlightCreator flightCreator,
-                                       EmployeeRepository<EmployeeHuman> humanEmployeeRepository) {
+    public Startup(AnomalyGenerator anomalyGenerator,
+                   StockResourceRepository resourceRepository,
+                   ShipRepository shipRepository,
+                   TouristGenerator touristGenerator,
+                   FlightCreator flightCreator,
+                   EmployeeRepository<EmployeeHuman> humanEmployeeRepository) {
         this.anomalyGenerator = anomalyGenerator;
         this.resourceRepository = resourceRepository;
         this.shipRepository = shipRepository;
@@ -101,6 +105,8 @@ public class CommandLineAppStartupRunner {
             flightCreator.createExplorationToAnomaly(1);
             flightCreator.createTourFlightToAnomaly(2, 1000);
         }
+
+        logger.info("Startup initialisation finished");
     }
 }
 
