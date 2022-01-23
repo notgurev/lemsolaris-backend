@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ShipRepository extends JpaRepository<Ship, Long> {
-    List<Ship> findAllByShipTypeAndFuelCapacityGreaterThan(String shipType, int fuelCapacity);
+    List<Ship> findAllByShipTypeAndFuelCapacityGreaterThanOrderByCrewCapacity(String shipType, int fuelCapacity);
 }

@@ -5,6 +5,7 @@ import lemsolaris.repositories.AnomalyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class AnomalyService {
@@ -20,5 +21,13 @@ public class AnomalyService {
 
     public Collection<Anomaly> getUnexploredAnomalies() {
         return anomalyRepository.getAnomaliesByStatus("Unexplored");
+    }
+
+    public Anomaly findAnomalyById(long id) {
+        Optional<Anomaly> a = anomalyRepository.findById(id);
+        if (!a.isPresent()) {
+            throw new RuntimeException("Anomaly not found by id");
+        }
+        return a.get();
     }
 }

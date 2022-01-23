@@ -3,6 +3,7 @@ package lemsolaris.services;
 import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.flight.ExplorationFlight;
 import lemsolaris.model.flight.TourFlight;
+import lemsolaris.model.other.Coordinates;
 import lemsolaris.model.other.Ship;
 import lemsolaris.repositories.AnomalyRepository;
 import lemsolaris.repositories.FlightRepository;
@@ -11,49 +12,42 @@ import lemsolaris.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class FlightCreator {
     private final FlightRepository<ExplorationFlight> explorationFlights;
     private final FlightRepository<TourFlight> touristFlights;
     private final ShipRepository ships;
     private final AnomalyRepository anomalies;
+
+    // Services
     private final DistanceCalculator distanceCalculator;
+    private final AnomalyService anomalyService;
+    private final ShipService shipService;
 
     @Autowired
     public FlightCreator(FlightRepository<ExplorationFlight> explorationFlights,
                          FlightRepository<TourFlight> touristFlights,
                          ShipRepository ships,
                          AnomalyRepository anomalies,
-                         DistanceCalculator distanceCalculator) {
+                         DistanceCalculator distanceCalculator,
+                         AnomalyService anomalyService,
+                         ShipService shipService) {
         this.explorationFlights = explorationFlights;
         this.touristFlights = touristFlights;
         this.ships = ships;
         this.anomalies = anomalies;
         this.distanceCalculator = distanceCalculator;
+        this.anomalyService = anomalyService;
+        this.shipService = shipService;
     }
 
     public long createExplorationToAnomaly(long id) {
-        Optional<Anomaly> byId = anomalies.findById(id);
-        if (!byId.isPresent()) {
-            throw new RuntimeException("Anomaly not found by id");
-        }
-        Anomaly anomaly = byId.get();
+        Anomaly anomaly = anomalyService.findAnomalyById(id);
 
-        long distance = (int) distanceCalculator.calculate(
-                anomaly.getCoordinates().getX(),
-                anomaly.getCoordinates().getY()
-        );
-        List<Ship> explorationShips = ships.findAllByShipTypeAndFuelCapacityGreaterThan(
-                "Exploration", (int) distance);
+        Coordinates c = anomaly.getCoordinates();
+        int distance = distanceCalculator.calculate(c.getX(), c.getY());
 
-        if (explorationShips.size() == 0) {
-            throw new RuntimeException("No ships with enough fuel capacity for distance = " + distance);
-        }
-
-        Ship ship = explorationShips.get(Utility.randomIntInRange(0, explorationShips.size()));
+        Ship ship = shipService.findSuitableShip("Exploration", distance);
         ExplorationFlight explorationFlight = new ExplorationFlight(
                 ship,
                 anomaly,

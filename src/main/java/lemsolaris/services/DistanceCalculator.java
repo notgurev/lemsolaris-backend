@@ -14,10 +14,10 @@ public class DistanceCalculator {
 
     private static final int SPEED_COORDS_PER_MINUTE = 100;
 
-    public long calculate(long x, long y) {
+    public int calculate(long x, long y) {
         long diffX = baseX - x;
         long diffY = baseY - y;
-        return (long) Math.sqrt(diffX * diffX + diffY * diffY);
+        return (int) Math.sqrt(diffX * diffX + diffY * diffY);
     }
 
     public LocalDateTime calculateEndTime(LocalDateTime start, long distance) {
