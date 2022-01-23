@@ -31,4 +31,7 @@ public class FlightService {
         return anomalyReportRepository.findById(id);
     }
 
+    public void cancelFlightById(int id) {
+        //todo - отмена вылета
+    }
 }

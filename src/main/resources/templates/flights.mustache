@@ -51,6 +51,7 @@
         <th>TimeStart</th>
         <th>TimeEnd</th>
         <th>Report</th>
+        <th>Cancellation Flight</th>
     </tr>
     </thead>
     <tbody>
@@ -66,6 +67,11 @@
                 <form action="/report" method="GET">
                     <input hidden name="type" value="{{type}}"/>
                     <button type="submit" name="id" value="{{id}}">Отчет</button>
+                </form>
+            </td>
+            <td>
+                <form action="/cancelFlight" method="GET">
+                    <button type="submit" name="id" value="{{id}}">Отмена</button>
                 </form>
             </td>
         </tr>

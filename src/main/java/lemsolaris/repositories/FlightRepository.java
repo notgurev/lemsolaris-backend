@@ -11,6 +11,5 @@ import java.util.Collection;
 
 @Repository
 public interface FlightRepository<T extends Flight> extends JpaRepository<T, Long> {
-
 }
 

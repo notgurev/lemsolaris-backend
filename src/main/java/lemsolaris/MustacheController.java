@@ -89,9 +89,18 @@ public class MustacheController {
     }
 
     @GetMapping("/createTour")
-    public ModelAndView createTour(Map<String, Object> model, @RequestParam(name = "id") int id) {
-        // TODO ADD TICKET PRICE
-        flightCreator.createTourFlightToAnomaly(2, 1000);
+    public ModelAndView createTour(Map<String, Object> model, @RequestParam(name = "id") int id, @RequestParam(name = "ticketMoney") int ticketMoney) {
+        flightCreator.createTourFlightToAnomaly(id, ticketMoney);
+        ArrayList<Flight> flights = (ArrayList<Flight>) flightService.getFlights();
+        model.put("flight", flights);
+        return new ModelAndView("flights", model);
+    }
+
+    @GetMapping("/cancelFlight")
+    public ModelAndView cancelFlight(Map<String, Object> model, @RequestParam(name = "id") int id){
+        flightService.cancelFlightById(id);
+        ArrayList<Flight> flights = (ArrayList<Flight>) flightService.getFlights();
+        model.put("flight", flights);
         return new ModelAndView("flights", model);
     }
 
