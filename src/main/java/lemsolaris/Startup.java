@@ -77,7 +77,7 @@ public class Startup {
 
         // Resources
         {
-            resourceRepository.save(new StockResource(ResourceType.Money, 10000, 1))
+            resourceRepository.save(new StockResource(ResourceType.Money, 10000, 1));
             resourceRepository.save(new StockResource(ResourceType.Fuel, 5000, 2));
             resourceRepository.save(new StockResource(ResourceType.Medkit, 100, 10));
             resourceRepository.save(new StockResource(ResourceType.Lunchbox, 50, 5));

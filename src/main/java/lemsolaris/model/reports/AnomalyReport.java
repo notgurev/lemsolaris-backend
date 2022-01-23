@@ -41,4 +41,16 @@ public class AnomalyReport {
     @ManyToOne
     @JoinColumn(name = "flight_id", referencedColumnName = "id")
     private Flight flight;
+
+    public AnomalyReport(Employee author, boolean successful, AnomalyType anomalyType,
+                         HazardLevel anomalyHazardLevel, int anomalyFlightRadius,
+                         Anomaly anomaly, Flight flight) {
+        this.author = author;
+        this.successful = successful;
+        this.anomalyType = anomalyType;
+        this.anomalyHazardLevel = anomalyHazardLevel;
+        this.anomalyFlightRadius = anomalyFlightRadius;
+        this.anomaly = anomaly;
+        this.flight = flight;
+    }
 }
