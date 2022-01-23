@@ -1,5 +1,6 @@
 package lemsolaris.model.flight;
 
+import lemsolaris.model.anomaly.Anomaly;
 import lemsolaris.model.other.Ship;
 import lemsolaris.model.other.StockResource;
 import lombok.Data;
@@ -43,6 +44,10 @@ public class Flight {
 
     @Column(name = "time_end")
     private LocalDateTime timeEnd;
+
+    @Column(name = "target_anomaly")
+    @ManyToOne
+    private Anomaly targetAnomaly;
 
     @ManyToMany
     @JoinTable(
