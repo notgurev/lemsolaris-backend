@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "employee")
 @Getter
 @Setter
-public class Employee {
+public abstract class Employee {
     @Id
     @Column(name = "employee_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
