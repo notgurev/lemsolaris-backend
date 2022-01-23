@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RouteGenerator implements IRouteGenerator {
+
     private final AnomalyRepository anomalyRepository;
 
-    public RouteGenerator(@Autowired AnomalyRepository ar) {
-        this.anomalyRepository = ar;
+    public RouteGenerator(AnomalyRepository anomalyRepository) {
+        this.anomalyRepository = anomalyRepository;
     }
+
 
     public void generateRoute() {
 
