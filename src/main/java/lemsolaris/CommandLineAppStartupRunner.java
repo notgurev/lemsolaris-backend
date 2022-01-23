@@ -1,7 +1,10 @@
 package lemsolaris;
 
+import lemsolaris.model.employee.EmployeeHuman;
 import lemsolaris.model.other.Ship;
+import lemsolaris.model.other.ShipType;
 import lemsolaris.model.other.StockResource;
+import lemsolaris.repositories.EmployeeRepository;
 import lemsolaris.repositories.ShipRepository;
 import lemsolaris.repositories.StockResourceRepository;
 import lemsolaris.services.FlightCreator;
@@ -15,7 +18,6 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 
 import static lemsolaris.util.Utility.randomIntInRange;
-import static lemsolaris.util.Utility.randomStringFromArray;
 
 @Component
 public class CommandLineAppStartupRunner {
@@ -24,23 +26,33 @@ public class CommandLineAppStartupRunner {
     private final ShipRepository shipRepository;
     private final TouristGenerator touristGenerator;
     private final FlightCreator flightCreator;
+    private final EmployeeRepository<EmployeeHuman> humanEmployeeRepository;
 
     @Autowired
     public CommandLineAppStartupRunner(AnomalyGenerator anomalyGenerator,
                                        StockResourceRepository resourceRepository,
                                        ShipRepository shipRepository,
                                        TouristGenerator touristGenerator,
-                                       FlightCreator flightCreator) {
+                                       FlightCreator flightCreator,
+                                       EmployeeRepository<EmployeeHuman> humanEmployeeRepository) {
         this.anomalyGenerator = anomalyGenerator;
         this.resourceRepository = resourceRepository;
         this.shipRepository = shipRepository;
         this.touristGenerator = touristGenerator;
         this.flightCreator = flightCreator;
+        this.humanEmployeeRepository = humanEmployeeRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void fillTables() {
+        // Employees
+        {
+            for (int i = 0; i < 100; i++) {
+                new EmployeeHuman();
+            }
+        }
+
         // Resources
         {
             resourceRepository.save(new StockResource("Money", 10000, 1));
@@ -59,11 +71,19 @@ public class CommandLineAppStartupRunner {
 
         // Ships
         {
-            String[] strings = {"Tourist", "Exploration"};
             for (int i = 0; i < 100; i++) {
                 Ship s = new Ship(
-                        randomStringFromArray(strings),
-                        randomIntInRange(1000, 5000),
+                        ShipType.Tourist,
+                        randomIntInRange(1000, 2000),
+                        randomIntInRange(2, 5),
+                        randomIntInRange(2, 20)
+                );
+                shipRepository.save(s);
+            }
+            for (int i = 0; i < 100; i++) {
+                Ship s = new Ship(
+                        ShipType.Exploration,
+                        randomIntInRange(1000, 2000),
                         randomIntInRange(2, 5),
                         randomIntInRange(2, 20)
                 );

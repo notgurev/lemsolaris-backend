@@ -6,6 +6,7 @@ import lemsolaris.model.flight.Flight;
 import lemsolaris.model.flight.TourFlight;
 import lemsolaris.model.other.Coordinates;
 import lemsolaris.model.other.Ship;
+import lemsolaris.model.other.ShipType;
 import lemsolaris.repositories.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class FlightCreator {
         Coordinates c = anomaly.getCoordinates();
         int distance = calculateDistance(c.getX(), c.getY());
 
-        Ship ship = shipService.findSuitableShip("Exploration", distance);
+        Ship ship = shipService.findSuitableShip(ShipType.Exploration, distance);
         Flight f = new ExplorationFlight(ship, anomaly);
         flights.save(f);
 
@@ -49,7 +50,7 @@ public class FlightCreator {
         Coordinates c = anomaly.getCoordinates();
         int distance = calculateDistance(c.getX(), c.getY());
 
-        Ship ship = shipService.findSuitableShip("Tourist", distance);
+        Ship ship = shipService.findSuitableShip(ShipType.Tourist, distance);
 
         Flight f = new TourFlight(ship, anomaly, ticketPrice);
         flights.save(f);

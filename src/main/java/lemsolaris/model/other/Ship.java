@@ -12,11 +12,12 @@ import javax.persistence.*;
 public class Ship {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ship_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ship_seq")
     private Long id;
 
     @Column(name = "type")
-    private String shipType;
+    @Enumerated(EnumType.STRING)
+    private ShipType shipType;
 
     @Column(name = "fuel_capacity")
     private int fuelCapacity;
@@ -27,10 +28,11 @@ public class Ship {
     @Column(name = "crew_capacity")
     private int crewCapacity;
 
-    public Ship(String shipType, int fuelCapacity, int durability, int crewCapacity) {
+    public Ship(ShipType shipType, int fuelCapacity, int durability, int crewCapacity) {
         this.shipType = shipType;
         this.fuelCapacity = fuelCapacity;
         this.durability = durability;
         this.crewCapacity = crewCapacity;
     }
 }
+
