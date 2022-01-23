@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @Table(name = "flight")
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
+@Getter
+@Setter
 public abstract class Flight {
     @Id
     @Column(name = "id")

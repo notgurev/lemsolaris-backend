@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anomalies</title>
+    <style>
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+            border: 5px solid #fff;
+            border-top: 5px solid #fff;
+            border-bottom: 3px solid #fff;
+            border-collapse: collapse;
+            outline: 3px solid #ffd300;
+            font-size: 15px;
+            background: #fff !important;
+        }
+
+        .table th {
+            font-weight: bold;
+            padding: 7px;
+            background: #ffd300;
+            border: none;
+            text-align: left;
+            font-size: 15px;
+            border-top: 3px solid #fff;
+            border-bottom: 3px solid #ffd300;
+        }
+
+        .table td {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 7px;
+            border: none;
+            border-top: 3px solid #fff;
+            border-bottom: 3px solid #fff;
+            font-size: 15px;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background: #f8f8f8 !important;
+        }
+    </style>
+</head>
+<body>
+<form action="/main">
+    <button type="submit">Назад</button>
+</form>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>TimeStart</th>
+        <th>TimeEnd</th>
+        <th>Ship</th>
+        <th>Report</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#flight}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{type}}</td>
+            <td>{{status}}</td>
+            <td>{{timeStart}}</td>
+            <td>{{timeEnd}}</td>
+            <td>
+             {{ship.id}}
+             {{ship.shipType}}
+            </td>
+            <td>
+                <form action="/report" method="GET">
+                    <button type="submit" name="id" value="{{id}}">Отчет</button>
+                </form>
+            </td>
+        </tr>
+    {{/flight}}
+    </tbody>
+</table>
+</body>
+</html>
